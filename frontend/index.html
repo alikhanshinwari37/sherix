@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>SHERIX | Luxury Watches - Rule Your Time</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .shop-wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .shop-header{position:sticky;top:0;z-index:100;background:rgba(9,9,9,.92);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .shop-header-inner{max-width:1200px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .shop-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+    .shop-brand-mark{width:40px;height:40px;display:grid;place-items:center;border:1px solid #e33c56;color:#e33c56;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700}
+    .shop-brand-name{font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:7px;font-weight:700;color:#fff}
+    .shop-actions{display:flex;align-items:center;gap:12px}
+    .cart-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(100deg,#86172d,#bd2944);border:1px solid #d13a55;color:#fff;padding:11px 18px;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:3px}
+    .cart-count{background:#fff;color:#a71932;min-width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;padding:0 4px}
+    .shop-hero{text-align:center;padding:60px 20px 30px;position:relative}
+    .shop-hero .eyebrow{color:#e33c56;font-size:10px;letter-spacing:4px;font-weight:700}
+    .shop-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,8vw,68px);font-weight:600;line-height:1.05;margin:15px 0 12px}
+    .shop-hero h1 span{color:#e33c56}
+    .shop-hero p{color:#858585;font-size:13px;line-height:1.8;max-width:520px;margin:0 auto}
+    .hero-line{width:55px;height:2px;background:#e33c56;margin:22px auto;box-shadow:0 0 15px rgba(227,60,86,.7)}
+    .hero-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .hero-badges span{border:1px solid rgba(255,255,255,.12);padding:8px 14px;font-size:10px;letter-spacing:1.5px;color:#d6d6d6}
+    .shop-toolbar{display:flex;gap:12px;margin:30px 0 20px}
+    .shop-toolbar input{flex:1}
+    .shop-toolbar select{min-width:160px;background:#090909;border:1px solid #303030;color:#fff;padding:0 12px;height:51px;font-size:13px;outline:none}
+    .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:40px}
+    .p-card{background:linear-gradient(145deg,#171717,#0d0d0d);border:1px solid rgba(255,255,255,.08);border-radius:5px;overflow:hidden;transition:.3s}
+    .p-card:hover{border-color:rgba(227,60,86,.4);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+    .p-card-img{position:relative;background:#080808}
+    .p-card-img img{width:100%;height:280px;object-fit:cover;display:block}
+    .p-badge{position:absolute;top:12px;left:12px;background:#a71932;color:#fff;font-size:9px;letter-spacing:2px;padding:6px 10px;font-weight:700}
+    .p-stock{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.7);backdrop-filter:blur(5px);color:#54c88c;font-size:10px;padding:6px 10px}
+    .p-body{padding:20px}
+    .p-brand{color:#e33c56;font-size:10px;letter-spacing:3px;font-weight:700}
+    .p-body h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin:8px 0 4px;text-align:left;letter-spacing:.5px}
+    .p-body small{color:#858585;font-size:11px;line-height:1.6;display:block}
+    .p-row{display:flex;align-items:center;justify-content:space-between;margin:14px 0}
+    .p-price{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#fff}
+    .p-price small{color:#858585;font-family:'Inter',sans-serif;font-size:11px}
+    .add-btn{width:100%;height:48px;background:linear-gradient(100deg,#86172d,#bd2944);border:1px solid #d13a55;color:#fff;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:.3s}
+    .add-btn:hover{box-shadow:0 8px 30px rgba(189,41,68,.3);transform:translateY(-1px)}
+    .add-btn.added{background:#111;border-color:#54c88c;color:#54c88c}
+    .shop-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}
+    .shop-modal.is-open{display:flex}
+    .shop-backdrop{position:absolute;inset:0;background:rgba(3,3,5,.86);backdrop-filter:blur(12px)}
+    .shop-modal-box{position:relative;z-index:1;width:min(100%,440px);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#171717,#0d0d0d);border:1px solid rgba(227,60,86,.3);border-radius:12px;padding:28px;animation:reveal .3s ease both}
+    .shop-modal-box h2{font-family:'Cormorant Garamond',serif;font-size:28px;text-align:left}
+    .shop-modal-box h2 span{color:#e33c56}
+    .shop-modal-box p{color:#858585;font-size:12px;line-height:1.7;margin:8px 0 18px}
+    .shop-modal-box label{color:#d5d5d5;font-size:11px;font-weight:600;letter-spacing:1px;display:block;margin:0 0 8px}
+    .shop-modal-box input,.shop-modal-box textarea{margin-bottom:14px}
+    .shop-modal-box textarea{height:auto;min-height:80px;padding:12px 15px;resize:vertical}
+    .wa-btn{width:100%;height:54px;background:#25D366;border:none;color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:3px}
+    .close-link{width:100%;background:none;border:none;color:#777;margin-top:12px;cursor:pointer;font-size:11px;letter-spacing:1px}
+    .cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08);align-items:center}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:4px}
+    .cart-item b{font-size:13px}
+    .cart-item span{color:#e33c56;font-size:13px}
+    .remove-btn{background:#222;border:1px solid #444;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer}
+    #splash{position:fixed;inset:0;z-index:10000;background:#090909;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
+    #splash .brand-mark{width:60px;height:60px;font-size:38px}
+    .splash-bar{width:160px;height:2px;background:#222;margin-top:30px;overflow:hidden}
+    .splash-bar div{height:100%;width:0%;background:#e33c56;transition:width 2.8s;box-shadow:0 0 15px rgba(227,60,86,.7)}
+    @media(max-width:900px){.products-grid{grid-template-columns:repeat(2,1fr)}.shop-toolbar{flex-direction:column}.shop-toolbar select{width:100%}}
+    @media(max-width:560px){.products-grid{grid-template-columns:1fr}.shop-brand-name{font-size:24px;letter-spacing:4px}.shop-hero{padding:40px 15px 20px}}
+    #checkoutModal .shop-backdrop{background:rgba(0,0,0,.88);backdrop-filter:blur(10px)}
+    #checkoutModal .shop-modal-box{background:linear-gradient(160deg,#1a0a0d 0%,#0d0d0d 55%,#160608 100%);border:1px solid rgba(227,60,86,.55);box-shadow:0 0 0 1px rgba(255,255,255,.06),0 30px 80px rgba(0,0,0,.85),0 0 65px rgba(167,25,50,.45);border-radius:16px;padding:0;max-width:520px;overflow-y:auto !important;overflow-x:hidden !important;max-height:92vh !important;-webkit-overflow-scrolling:touch}
+    #checkoutModal .shop-modal-box::-webkit-scrollbar{width:6px}
+    #checkoutModal .shop-modal-box::-webkit-scrollbar-track{background:#0d0d0d}
+    #checkoutModal .shop-modal-box::-webkit-scrollbar-thumb{background:#e33c56;border-radius:10px}
+    #checkoutModal{align-items:flex-start !important;overflow-y:auto !important;padding:12px !important}
+    #checkoutModal.is-open .shop-modal-box{animation:checkoutPop .45s cubic-bezier(.2,1.4,.4,1) both}
+    @keyframes checkoutPop{from{transform:translateY(35px) scale(.93);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+    .checkout-top-line{height:3px;background:linear-gradient(90deg,transparent,#e33c56,#ff9a3c,#e33c56,transparent);flex-shrink:0}
+    .checkout-head{padding:22px 26px 16px;text-align:center;border-bottom:1px solid rgba(255,255,255,.08);position:relative}
+    .checkout-head h2{font-size:30px!important;text-align:center!important;letter-spacing:2px;margin:0}
+    .checkout-head p{margin:6px 0 0!important}
+    .checkout-close-x{position:absolute;top:14px;right:14px;background:#222;border:1px solid #444;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1}
+    .checkout-trust{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+    .checkout-trust span{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:9px;letter-spacing:1.2px;padding:6px 10px;border-radius:20px;color:#ddd}
+    .checkout-summary{background:#0a0a0a;border:1px solid rgba(227,60,86,.28);border-radius:10px;margin:16px 16px 0;padding:14px}
+    .checkout-summary-title{font-size:10px;letter-spacing:2px;color:#e33c56;font-weight:800;margin-bottom:8px}
+    .checkout-summary-item{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.1)}
+    .checkout-summary-item:last-child{border-bottom:none}
+    .checkout-summary-item img{width:52px;height:52px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.15)}
+    .checkout-summary-item b{font-size:13px}
+    .checkout-summary-item small{color:#888}
+    .checkout-summary-item .c-price{margin-left:auto;color:#fff;font-weight:700;white-space:nowrap}
+    .checkout-total-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);font-size:13px}
+    .checkout-total-row strong{font-size:21px;color:#e33c56}
+    .checkout-form{padding:6px 16px 24px}
+    .checkout-form label{margin-top:14px!important}
+    .checkout-form input,.checkout-form textarea{transition:.25s}
+    .checkout-form input:focus,.checkout-form textarea:focus{border-color:#e33c56!important;box-shadow:0 0 0 3px rgba(227,60,86,.22)!important;background:#151515!important;outline:none}
+    #confirmWhatsApp{height:56px!important;font-size:14px!important;letter-spacing:1px!important;border-radius:10px!important;box-shadow:0 10px 25px rgba(37,211,102,.35)!important;transition:.25s;margin-top:18px!important}
+    #confirmWhatsApp:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(37,211,102,.5)!important}
+    .checkout-secure{text-align:center;font-size:11px;color:#777;margin:12px 0 0!important;letter-spacing:.3px}
+    @keyframes successPop{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes tickPop{from{transform:scale(0)}to{transform:scale(1)}}
+    @keyframes tickPulse{0%,100%{box-shadow:0 0 0 0 rgba(84,200,140,.35)}50%{box-shadow:0 0 0 12px rgba(84,200,140,0)}}
+    @keyframes confettiFall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(400px) rotate(360deg);opacity:0}}
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <div style="display:flex;align-items:center;gap:12px;"><span class="brand-mark">S</span><span style="font-family:'Cormorant Garamond',serif;font-size:44px;letter-spacing:8px;font-weight:700;">SHERIX</span></div>
+    <div style="width:55px;height:2px;background:#e33c56;margin:20px auto;box-shadow:0 0 15px rgba(227,60,86,.7);"></div>
+    <p style="color:#858585;font-size:10px;letter-spacing:4px;">RULE YOUR TIME</p>
+    <div class="splash-bar"><div id="splashBar"></div></div>
+  </div>
+  <header class="shop-header">
+    <div class="shop-header-inner">
+      <a href="index.html" class="shop-brand"><span class="shop-brand-mark">S</span><span class="shop-brand-name">SHERIX</span></a>
+      <div class="shop-actions"><button id="cartButton" class="cart-btn">🛒 CART <span class="cart-count" id="cartCount">0</span></button></div>
+    </div>
+  </header>
+  <section class="shop-hero shop-wrap">
+    <p class="eyebrow">EXCLUSIVE LUXURY COLLECTION</p>
+    <h1>Rule Your <span>Time.</span></h1>
+    <div class="hero-line"></div>
+    <p>Premium watches, handpicked for those who rule their time. Cash on Delivery available across Pakistan. Order on WhatsApp in 1 minute.</p>
+    <div class="hero-badges"><span>◆ 100% ORIGINAL</span><span>◆ CASH ON DELIVERY</span><span>◆ FAST DELIVERY</span></div>
+  </section>
+  <div class="shop-wrap">
+    <div class="shop-toolbar">
+      <input id="searchInput" placeholder="Search watches - Brand, Model...">
+      <select id="brandFilter"><option value="">All Brands</option></select>
+    </div>
+    <div id="productsGrid" class="products-grid"><p style="color:#858585;text-align:center;grid-column:1/-1;padding:40px;">Loading watches...</p></div>
+  </div>
+  <footer style="text-align:center;padding:30px 20px 40px;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:4px;color:#aaa;">SHERIX — RULE YOUR TIME.</p>
+    <span style="color:#666;font-size:8px;letter-spacing:2px;">POWERED BY ALI TEC CORPORATION</span>
+  </footer>
+  <div id="cartModal" class="shop-modal">
+    <div class="shop-backdrop" onclick="closeModal('cartModal')"></div>
+    <div class="shop-modal-box">
+      <h2>Your <span>Cart.</span></h2>
+      <p>Review your selection before ordering.</p>
+      <div id="cartItems"></div>
+      <h3 id="cartTotal" style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:15px 0;"></h3>
+      <button id="goCheckout" class="wa-btn" style="background:linear-gradient(100deg,#86172d,#bd2944);border:1px solid #d13a55;">PROCEED TO CHECKOUT →</button>
+      <button class="close-link" onclick="closeModal('cartModal')">CONTINUE SHOPPING</button>
+    </div>
+  </div>
+  <div id="checkoutModal" class="shop-modal">
+    <div class="shop-backdrop" onclick="closeModal('checkoutModal')"></div>
+    <div class="shop-modal-box">
+      <div class="checkout-top-line"></div>
+      <div class="checkout-head">
+        <button class="checkout-close-x" onclick="closeModal('checkoutModal')">×</button>
+        <p style="color:#e33c56;font-size:10px;letter-spacing:4px;font-weight:700;margin:0!important;">SHERIX • RULE YOUR TIME</p>
+        <h2>Confirm <span>Order.</span></h2>
+        <p>Almost Yours — Complete Your Order</p>
+        <div class="checkout-trust"><span>🔒 100% SECURE</span><span>🚚 CASH ON DELIVERY</span><span>↩️ EASY RETURN</span></div>
+      </div>
+      <div class="checkout-summary">
+        <div class="checkout-summary-title">YOUR ORDER — <span id="checkoutCount">0 ITEMS</span></div>
+        <div id="checkoutSummaryItems"></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-top:12px;"><span>Subtotal</span><span id="checkoutSubtotal">Rs 0</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-top:6px;"><span>Delivery</span><span id="checkoutDelivery" style="color:#54c88c;">Rs 0</span></div>
+        <div class="checkout-total-row"><span>Total Payable</span><strong id="checkoutSummaryTotal">Rs 0</strong></div>
+      </div>
+      <div class="checkout-form">
+        <label>Full Name *</label><input id="custName" placeholder="Enter your full name">
+        <label>Mobile Number *</label><input id="custPhone" placeholder="03xx-xxxxxxx">
+        <label>Email</label><input id="custEmail" placeholder="Enter your email (optional)">
+        <label>Full Address *</label><textarea id="custAddress" placeholder="House, Street, Area, City"></textarea>
+        <button id="confirmWhatsApp" class="wa-btn">💬 CONFIRM ORDER ON WHATSAPP →</button>
+        <p class="checkout-secure">🔒 Your details are safe • Pay on Delivery • SHERIX will confirm on WhatsApp</p>
+        <button class="close-link" onclick="closeModal('checkoutModal')">CANCEL</button>
+      </div>
+    </div>
+  </div>
+  <div id="orderSuccessOverlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(3,3,5,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:20px;">
+    <div id="successCard" style="width:100%;max-width:420px;background:linear-gradient(160deg,#1a0a0d,#111);border:1px solid rgba(227,60,86,.45);border-radius:20px;padding:38px 28px 32px;text-align:center;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 60px rgba(167,25,50,.3);animation:successPop .5s ease;">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#e33c56,#ff9a3c,transparent);"></div>
+      <div style="width:90px;height:90px;margin:0 auto 20px;border-radius:50%;background:rgba(84,200,140,.12);border:2px solid #54c88c;display:grid;place-items:center;animation:tickPulse 1s infinite;">
+        <div style="width:64px;height:64px;border-radius:50%;background:#54c88c;display:grid;place-items:center;animation:tickPop .5s .2s ease both;"><span style="color:#fff;font-size:34px;font-weight:900;">✓</span></div>
+      </div>
+      <p style="color:#e33c56;font-size:10px;font-weight:800;letter-spacing:4px;margin:0;">ORDER CONFIRMED</p>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:32px;margin:10px 0 10px;line-height:1.2;color:#fff;">Your Order Is<br>Placed Successfully!</h2>
+      <p style="color:#aaa;font-size:13px;line-height:1.8;margin:0;">Thank you for shopping with <b style="color:#fff;">SHERIX</b>.<br>The seller will contact you shortly<br>on WhatsApp to confirm your order.</p>
+      <div style="margin:20px 0 0;background:#0a0a0a;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px;">
+        <small style="color:#888;font-size:10px;letter-spacing:2px;">ORDER ID</small>
+        <div id="successOrderId" style="font-size:18px;font-weight:700;color:#e33c56;margin-top:4px;">#SHX-001</div>
+      </div>
+      <div style="height:4px;background:#222;border-radius:10px;overflow:hidden;margin-top:20px;"><div id="successProgress" style="height:100%;width:100%;background:linear-gradient(90deg,#e33c56,#ff9a3c);border-radius:10px;"></div></div>
+      <p style="color:#666;font-size:10px;margin:10px 0 0;letter-spacing:1px;">Redirecting to SHERIX in <span id="successTimer">8</span>s...</p>
+    </div>
+  </div>
+<script>
+  // FIXED: Localhost pe localhost, live pe Render URL. Sirf neeche wali line me apna Render URL dalo
+  const LIVE_API = "https://YOUR-RENDER-URL.onrender.com/api";
+  const API = (location.hostname === "localhost" || location.hostname === "127.0.0.1") ? "http://127.0.0.1:5000/api" : LIVE_API;
+  const SELLER_WHATSAPP = "923075689144";
+  let allShopProducts = [];
+  let cart = JSON.parse(localStorage.getItem("sherix_cart") || "[]");
+  let searchTerm = "", brandFilter = "";
+  // Cart totals helper - subtotal + delivery = grand total
+  function cartTotals(){
+    let subtotal = 0, delivery = 0;
+    cart.forEach(p=>{ subtotal += Number(p.price||0); delivery += Number(p.delivery_charge || 0); });
+    return { subtotal, delivery, grandTotal: subtotal + delivery };
+  }
+  window.addEventListener("load", () => {
+    setTimeout(()=>{ document.getElementById("splashBar").style.width="100%"; },100);
+    setTimeout(()=>{ const s=document.getElementById("splash"); s.style.opacity="0"; setTimeout(()=>s.remove(),500); },3000);
+  });
+  function closeModal(id){ document.getElementById(id).classList.remove("is-open"); }
+  function openModal(id){ document.getElementById(id).classList.add("is-open"); }
+  async function loadShop() {
+    try {
+      const res = await fetch(`${API}/products`);
+      const data = await res.json();
+      allShopProducts = (data.products || []).filter(p => p.status === "active");
+      const brands = [...new Set(allShopProducts.map(p=>p.brand))];
+      document.getElementById("brandFilter").innerHTML = `<option value="">All Brands</option>` + brands.map(b=>`<option value="${b}">${b}</option>`).join("");
+      document.getElementById("brandFilter").value = brandFilter;
+      renderShop();
+    } catch(e) { document.getElementById("productsGrid").innerHTML = `<p style="color:#e33c56;grid-column:1/-1;text-align:center;">Cannot connect to server. Backend on karo.</p>`; }
+  }
+  function renderShop(){
+    const grid = document.getElementById("productsGrid");
+    let list = allShopProducts.filter(p=>{
+      const spec = p.specifications || {};
+      const name = (spec.name || `${p.brand} ${p.model}`).toLowerCase();
+      const okSearch = !searchTerm || name.includes(searchTerm) || p.brand.toLowerCase().includes(searchTerm);
+      const okBrand = !brandFilter || p.brand === brandFilter;
+      return okSearch && okBrand;
+    });
+    if(list.length===0){ grid.innerHTML = `<p style="color:#858585;grid-column:1/-1;text-align:center;padding:40px;">No watches found.</p>`; return; }
+    grid.innerHTML = list.map(p=>{
+      const spec = p.specifications || {};
+      const name = spec.name || `${p.brand} ${p.model}`;
+      const inCart = cart.some(c=>String(c.id)===String(p.id));
+      return `<article class="p-card">
+        <div class="p-card-img"><img src="${p.image_url||''}" alt="${name}"><span class="p-badge">${(spec.category||'LUXURY').toUpperCase()}</span><span class="p-stock">● In Stock (${p.stock_quantity})</span></div>
+        <div class="p-body"><div class="p-brand">${p.brand.toUpperCase()}</div><h3>${name}</h3><small>${p.model} • ${spec.category||''} • ${spec.movement||''}</small>
+        <div class="p-row"><div class="p-price">Rs ${Number(p.price).toLocaleString()}<br><small>Cash on Delivery</small></div></div>
+        <button class="add-btn ${inCart?'added':''}" onclick="addToCart('${p.id}')">${inCart?'✓ ADDED TO CART':'ADD TO CART →'}</button></div>
+      </article>`;
+    }).join("");
+  }
+  function addToCart(id){
+    const p = allShopProducts.find(x=>String(x.id)===String(id)); if(!p) return;
+    if(cart.some(c=>String(c.id)===String(id))) return;
+    cart.push(p); localStorage.setItem("sherix_cart", JSON.stringify(cart)); updateCartCount(); renderShop();
+  }
+  function removeFromCart(id){ cart=cart.filter(c=>String(c.id)!==String(id)); localStorage.setItem("sherix_cart", JSON.stringify(cart)); updateCartCount(); openCart(); renderShop(); }
+  function updateCartCount(){ document.getElementById("cartCount").textContent = cart.length; }
+  function openCart(){
+    const box=document.getElementById("cartItems");
+    if(cart.length===0){ box.innerHTML=`<p style="color:#858585;">Cart khaali hai.</p>`; document.getElementById("cartTotal").textContent=""; }
+    else {
+      const t = cartTotals();
+      box.innerHTML=cart.map(p=>{ return `<div class="cart-item"><img src="${p.image_url||''}"><div style="flex:1;"><b>${p.brand} ${p.model}</b><br><span>Rs ${Number(p.price).toLocaleString()}</span></div><button class="remove-btn" onclick="removeFromCart('${p.id}')">✕</button></div>`; }).join("");
+      document.getElementById("cartTotal").textContent=`Total: Rs ${t.grandTotal.toLocaleString()} (incl. Rs ${t.delivery.toLocaleString()} Delivery)`;
+    }
+    openModal("cartModal");
+  }
+  document.getElementById("cartButton").addEventListener("click", openCart);
+  function openCheckoutWithSummary(){
+    const box = document.getElementById("checkoutSummaryItems");
+    const countEl = document.getElementById("checkoutCount");
+    const totalEl = document.getElementById("checkoutSummaryTotal");
+    const subEl = document.getElementById("checkoutSubtotal");
+    const delEl = document.getElementById("checkoutDelivery");
+    const t = cartTotals();
+    countEl.textContent = cart.length + " ITEMS";
+    box.innerHTML = cart.map(p=>{
+      const name = p.specifications?.name || `${p.brand} ${p.model}`;
+      return `<div class="checkout-summary-item"><img src="${p.image_url||''}" onerror="this.style.display='none'"><div><b>${name}</b><br><small>${p.brand} • ${p.model}</small></div><span class="c-price">Rs ${Number(p.price).toLocaleString()}</span></div>`;
+    }).join("");
+    if(subEl) subEl.textContent = "Rs " + t.subtotal.toLocaleString();
+    if(delEl) delEl.textContent = "Rs " + t.delivery.toLocaleString();
+    totalEl.textContent = "Rs " + t.grandTotal.toLocaleString();
+    openModal("checkoutModal");
+  }
+  document.getElementById("goCheckout").addEventListener("click", ()=>{ if(cart.length===0) return alert("Cart khaali hai!"); closeModal("cartModal"); openCheckoutWithSummary(); });
+  document.getElementById("searchInput").addEventListener("input", e=>{ searchTerm=e.target.value.toLowerCase(); renderShop(); });
+  document.getElementById("brandFilter").addEventListener("change", e=>{ brandFilter=e.target.value; renderShop(); });
+  function showOrderSuccess(orderId){
+    let overlay = document.getElementById("orderSuccessOverlay");
+    document.getElementById("successOrderId").textContent = "#" + orderId;
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    let card = document.getElementById("successCard");
+    for(let i=0;i<30;i++){
+      let c = document.createElement("div");
+      c.style.cssText = `position:absolute;top:-10px;left:${Math.random()*100}%;width:8px;height:8px;background:${["#e33c56","#ff9a3c","#fff","#54c88c"][Math.floor(Math.random()*4)]};border-radius:${Math.random()>0.5?"50%":"2px"};animation:confettiFall ${1.5+Math.random()}s ease forwards;z-index:1;pointer-events:none;`;
+      card.appendChild(c);
+      setTimeout(()=>c.remove(), 2500);
+    }
+    let sec = 8;
+    let timerEl = document.getElementById("successTimer");
+    let progressEl = document.getElementById("successProgress");
+    timerEl.textContent = "8";
+    progressEl.style.transition = "none"; progressEl.style.width = "100%";
+    setTimeout(()=>{ progressEl.style.transition = "width 8s linear"; progressEl.style.width = "0%"; }, 50);
+    let countdown = setInterval(()=>{
+      sec--; if(timerEl) timerEl.textContent = sec;
+      if(sec <= 0){
+        clearInterval(countdown);
+        overlay.style.display = "none";
+        document.body.style.overflow = "";
+        window.scrollTo({top:0, behavior:"smooth"});
+      }
+    }, 1000);
+  }
+  document.getElementById("confirmWhatsApp").addEventListener("click", async ()=>{
+    const name=document.getElementById("custName").value.trim();
+    const phone=document.getElementById("custPhone").value.trim();
+    const email=document.getElementById("custEmail").value.trim();
+    const address=document.getElementById("custAddress").value.trim();
+    if(!name||!phone||!address) return alert("Name, Mobile aur Address zaroori hai!");
+    if(cart.length===0) return alert("Cart khaali hai!");
+    let fallbackId = "SHX-" + Math.floor(1000 + Math.random()*9000);
+    let items = cart.map(p=>({ id: p.id, product_id: p.id, brand: p.brand, model: p.model, name: p.specifications?.name || `${p.brand} ${p.model}`, price: Number(p.price), quantity: 1, image_url: p.image_url || '' }));
+    const t = cartTotals();
+    let orderId = fallbackId;
+    try {
+      const res = await fetch(`${API}/orders`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
+        // NEW backend format
+        full_name: name, mobile_number: phone, email: email, full_address: address,
+        items: items, subtotal: t.subtotal, delivery_charge: t.delivery, grand_total: t.grandTotal,
+        // OLD format - backward compat
+        customer_name: name, customer_phone: phone, customer_email: email, customer_address: address, total_amount: t.grandTotal
+      }) });
+      const saved = await res.json().catch(()=>({}));
+      if(saved.order?.id) orderId = saved.order.id;
+      else if(saved.order_id) orderId = saved.order_id;
+      else if(saved.id) orderId = saved.id;
+    } catch(e) { console.log("Order save failed, WhatsApp still opening", e); }
+    let msg=`*NEW ORDER - SHERIX*%0A%0A*Order ID:* ${orderId}%0A*Customer:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Email:* ${encodeURIComponent(email||'-')}%0A*Address:* ${encodeURIComponent(address)}%0A%0A*--- ORDER ---*%0A`;
+    cart.forEach((p,i)=>{ msg+=`${i+1}. ${encodeURIComponent(p.brand+" "+p.model)} - Rs ${Number(p.price).toLocaleString()}%0A   Pic: ${encodeURIComponent(p.image_url||'')}%0A`; });
+    msg+=`%0A*Subtotal: Rs ${t.subtotal.toLocaleString()}*%0A*Delivery: Rs ${t.delivery.toLocaleString()}*%0A*TOTAL: Rs ${t.grandTotal.toLocaleString()}*%0A%0APlease confirm my order.`;
+    cart=[]; localStorage.removeItem("sherix_cart"); updateCartCount(); renderShop();
+    document.getElementById("custName").value=""; document.getElementById("custPhone").value=""; document.getElementById("custEmail").value=""; document.getElementById("custAddress").value="";
+    closeModal("checkoutModal");
+    window.open(`https://wa.me/${SELLER_WHATSAPP}?text=${msg}`,"_blank");
+    setTimeout(()=> showOrderSuccess(orderId), 400);
+  });
+  updateCartCount(); loadShop();
+</script>
+</body>
+</html>
