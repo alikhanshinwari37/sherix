@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>SHERIX | Seller Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <main class="login-page">
+    <section class="login-card">
+
+      <a class="brand" href="index.html" aria-label="SHERIX home">
+        <span class="brand-mark">S</span>
+        <span class="brand-name">SHERIX</span>
+      </a>
+
+      <div class="brand-line"></div>
+
+      <p class="eyebrow">EXCLUSIVE SELLER ACCESS</p>
+      <h1>Welcome <span>Back.</span></h1>
+      <p class="subtitle">
+        Sign in to manage your luxury watch collection.
+      </p>
+
+      <form id="loginForm">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your seller email"
+          autocomplete="username"
+          required
+        >
+
+        <label for="password">Password</label>
+        <div class="password-wrap">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+          <button type="button" id="togglePassword" aria-label="Show password">
+            SHOW
+          </button>
+        </div>
+
+        <button type="submit" id="loginButton">
+          <span>ACCESS SELLER STUDIO</span>
+          <span class="button-arrow">→</span>
+        </button>
+
+        <p id="loginMessage" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="security-note">
+        <span class="security-icon">◆</span>
+        SECURE AUTHENTICATED ACCESS
+      </div>
+
+    </section>
+
+    <footer>
+      <p>SHERIX — RULE YOUR TIME.</p>
+      <span>POWERED BY ALI TEC CORPORATION</span>
+    </footer>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

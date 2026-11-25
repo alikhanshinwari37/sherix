@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <title>SHERIX | Seller Studio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* PIN LOCK REMOVED - Auth ab login.html + JWT se hoga */
+    .orders-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    .orders-toolbar button{background:#111;border:1px solid #333;color:#ccc;padding:9px 16px;border-radius:20px;cursor:pointer;font-size:11px;letter-spacing:1px;font-weight:700;transition:.25s}
+    .orders-toolbar button.active{background:#a71932;border-color:#e33c56;color:#fff;box-shadow:0 5px 20px rgba(167,25,50,.4);transform:translateY(-1px)}
+    .order-card{background:linear-gradient(145deg,#1a1a1a,#0d0d0d);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px;margin-bottom:14px;position:relative;overflow:hidden;transition:.3s}
+    .order-card:hover{border-color:rgba(227,60,86,.35);box-shadow:0 15px 40px rgba(0,0,0,.4)}
+    .order-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#e33c56,#ff9a3c,transparent)}
+    .order-card.new-order{border-color:rgba(227,60,86,.6);box-shadow:0 0 25px rgba(227,60,86,.25)}
+    .order-card-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+    .order-card h3{font-size:17px;margin:0;color:#fff}
+    .order-card small{color:#858585;font-size:11px;line-height:1.6}
+    .order-status{font-size:10px;font-weight:800;letter-spacing:1.5px;padding:6px 12px;border-radius:20px;text-transform:uppercase;box-shadow:0 3px 12px rgba(0,0,0,.3)}
+    .order-status.new{background:rgba(227,60,86,.15);color:#ff6b81;border:1px solid rgba(227,60,86,.4);animation:pulseNew 2s infinite}
+    @keyframes pulseNew{0%,100%{box-shadow:0 0 0 0 rgba(227,60,86,.4)}50%{box-shadow:0 0 0 6px rgba(227,60,86,0)}}
+    .order-status.confirmed{background:rgba(255,193,7,.15);color:#ffc107;border:1px solid rgba(255,193,7,.4)}
+    .order-status.done{background:rgba(84,200,140,.15);color:#54c88c;border:1px solid rgba(84,200,140,.4)}
+    .order-status.cancelled{background:rgba(255,255,255,.08);color:#999;border:1px solid #444}
+    .order-items{margin:14px 0;display:grid;gap:10px}
+    .order-item{display:flex;gap:12px;align-items:center;background:#0a0a0a;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:10px;transition:.2s}
+    .order-item:hover{border-color:rgba(227,60,86,.3)}
+    .order-item img{width:60px;height:60px;object-fit:cover;border-radius:4px;border:1px solid rgba(255,255,255,.12)}
+    .order-item b{font-size:13px}
+    .order-item span{color:#e33c56;font-size:13px}
+    .order-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .order-actions button,.order-actions a{border:1px solid #333;background:#111;color:#fff;padding:10px 14px;font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;border-radius:6px;text-decoration:none;transition:.25s}
+    .order-actions button:hover,.order-actions a:hover{transform:translateY(-2px)}
+    .order-actions .wa-action{background:#25D366;border-color:#25D366;box-shadow:0 5px 15px rgba(37,211,102,.25)}
+    .order-actions .confirm-action{background:#a71932;border-color:#e33c56;box-shadow:0 5px 15px rgba(167,25,50,.35)}
+    .order-actions .done-action{background:#0d5c36;border-color:#54c88c}
+    .order-total{font-size:20px;font-weight:700;margin-top:10px}
+    .order-total span{color:#e33c56}
+    #sellerSettings{background:linear-gradient(145deg,#171717,#0d0d0d);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px}
+    .set-info-box{background:#0a0a0a;border:1px solid rgba(255,255,255,.08);padding:14px;border-radius:10px}
+    .set-info-box small{color:#888;font-size:10px;letter-spacing:1px}
+    .set-info-box div{margin-top:6px;font-size:14px;line-height:1.6}
+    .set-label{display:block;color:#d5d5d5;font-size:11px;margin-bottom:8px;letter-spacing:.5px}
+    .set-input{margin:0 !important}
+    .set-btn-save{flex:1;background:linear-gradient(110deg,#8e1930,#bd304a);border:1px solid #c63b55;color:#fff;height:48px;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:8px}
+    .set-btn-cancel{flex:1;background:#222;border:1px solid #444;color:#fff;height:48px;font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;border-radius:8px}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+    .stat-card{position:relative;overflow:hidden;transition:.3s}
+    .stat-card:hover{transform:translateY(-3px);border-color:rgba(227,60,86,.4)!important;box-shadow:0 15px 35px rgba(0,0,0,.4)}
+    .stat-card::after{content:"";position:absolute;top:0;right:0;width:60px;height:60px;background:radial-gradient(circle,rgba(227,60,86,.18),transparent 70%)}
+    .stat-card.revenue h3{color:#54c88c!important}
+    .order-search{flex:1;min-width:200px;background:#0a0a0a;border:1px solid #333;color:#fff;padding:10px 14px;border-radius:20px;outline:none;font-size:12px}
+    .order-search:focus{border-color:#e33c56}
+    #newOrderToast{position:fixed;top:20px;right:20px;z-index:99999;background:linear-gradient(110deg,#86172d,#bd2944);border:1px solid #e33c56;color:#fff;padding:14px 18px;border-radius:12px;font-size:13px;font-weight:700;box-shadow:0 15px 40px rgba(0,0,0,.5);display:none;animation:toastIn .4s ease;max-width:320px}
+    @keyframes toastIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    .new-dot{width:8px;height:8px;background:#e33c56;border-radius:50%;display:inline-block;animation:pulseNew 1.5s infinite}
+    @media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.order-card{padding:14px}.order-actions{flex-direction:column}.order-actions button,.order-actions a{width:100%;text-align:center}#settingsViewGrid{grid-template-columns:1fr !important}#settingsEditGrid{grid-template-columns:1fr !important}.stats-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div id="newOrderToast">🔔 <span id="toastText">New Order Aaya Hai!</span></div>
+  <div class="studio" id="sellerStudio">
+    <aside class="studio-sidebar">
+      <a href="index.html" class="studio-brand"><span class="brand-mark">S</span><span class="brand-name">SHERIX</span></a>
+      <p class="sidebar-label">SELLER STUDIO</p>
+      <nav class="studio-nav">
+        <button class="nav-item active" data-section="overview"><span>◈</span> Overview</button>
+        <button class="nav-item" data-section="products"><span>⌚</span> Products</button>
+        <button class="nav-item" data-section="orders"><span>▤</span> Orders <span id="navNewDot" style="display:none;" class="new-dot"></span></button>
+        <button class="nav-item" data-section="inventory"><span>▦</span> Inventory</button>
+        <button class="nav-item" data-section="settings"><span>⚙</span> Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="seller-mini-profile"><div class="seller-avatar">F</div><div><strong>Farman Shinwari</strong><small>Store Owner</small></div></div>
+        <button id="logoutButton" class="logout-button"><span>↪</span> Logout</button>
+      </div>
+    </aside>
+    <main class="studio-main">
+      <header class="studio-header">
+        <div><p class="studio-overline">SHERIX MANAGEMENT</p><h1>Seller <span>Studio</span></h1></div>
+        <div class="header-right">
+          <button onclick="loadOrders()" style="background:#111;border:1px solid #333;color:#fff;padding:10px 14px;border-radius:20px;cursor:pointer;font-size:11px;">↻ REFRESH</button>
+          <div class="status-indicator"><span class="status-dot"></span>STORE ACTIVE</div>
+          <div class="header-avatar">F</div>
+        </div>
+      </header>
+      <section class="studio-section active" id="overview">
+        <div class="welcome-banner">
+          <div><p class="studio-overline">YOUR BUSINESS. YOUR CONTROL.</p><h2>Welcome back,<br><span>Farman.</span></h2><p>Manage your luxury collection and keep your store running.</p></div>
+          <div class="welcome-symbol">S</div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="stat-card"><p>Total Products</p><h3 id="totalProducts">0</h3><span>Products in your collection</span></div>
+          <div class="stat-card"><p>Active Products</p><h3 id="activeProducts">0</h3><span>Published on SHERIX</span></div>
+          <div class="stat-card"><p>Total Orders</p><h3 id="totalOrders">0</h3><span>Customer orders received</span></div>
+          <div class="stat-card revenue"><p>💰 Total Revenue</p><h3 id="totalRevenue">Rs 0</h3><span>From confirmed + done orders</span></div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-top:-6px;">
+          <div class="stat-card"><p>🔔 New Orders</p><h3 id="pendingOrders" style="color:#ff6b81;">0</h3><span>Awaiting confirmation</span></div>
+          <div class="stat-card"><p>✅ Confirmed</p><h3 id="confirmedOrders" style="color:#ffc107;">0</h3><span>Ready to ship</span></div>
+          <div class="stat-card"><p>🎉 Completed</p><h3 id="doneOrders" style="color:#54c88c;">0</h3><span>Successfully delivered</span></div>
+        </div>
+        <div class="studio-panel">
+          <div class="panel-heading"><div><p class="studio-overline">QUICK ACCESS</p><h2>Manage Your Store</h2></div></div>
+          <div class="quick-actions">
+            <button class="quick-action" data-section="products"><span class="action-icon">⌚</span><strong>Manage Products</strong><small>Add, edit and publish watches</small><span class="action-arrow">→</span></button>
+            <button class="quick-action" data-section="orders"><span class="action-icon">▤</span><strong>Manage Orders</strong><small>Review and process customer orders</small><span class="action-arrow">→</span></button>
+          </div>
+        </div>
+        <div class="studio-panel">
+          <div class="panel-heading"><div><p class="studio-overline">CUSTOMER ACTIVITY</p><h2>Recent Orders</h2></div><button class="text-button" data-section="orders">View All →</button></div>
+          <div id="recentOrders"><div class="empty-state"><div class="empty-icon">▤</div><h3>No orders yet</h3><p>Your customer orders will appear here.</p></div></div>
+        </div>
+      </section>
+      <section class="studio-section" id="products">
+        <div class="section-heading"><div><p class="studio-overline">YOUR COLLECTION</p><h2>Products</h2></div><button id="addProductButton" class="primary-button">+ ADD NEW WATCH</button></div>
+        <div class="studio-panel">
+          <div class="product-toolbar">
+            <input type="search" id="productSearch" placeholder="Search watches...">
+            <select id="productFilter"><option value="all">All Products</option><option value="active">Active</option><option value="hidden">Hidden</option><option value="archived">Archived</option></select>
+          </div>
+          <div id="productsContainer"><div class="empty-state"><div class="empty-icon">⌚</div><h3>Your collection starts here</h3><p>Add your first luxury watch to SHERIX.</p></div></div>
+        </div>
+      </section>
+      <section class="studio-section" id="orders">
+        <div class="section-heading"><div><p class="studio-overline">CUSTOMER PURCHASES</p><h2>Orders <span id="ordersLive" style="font-size:12px;color:#54c88c;">● LIVE</span></h2></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="primary-button" onclick="exportOrdersCSV()">📥 EXPORT CSV</button><button class="primary-button" onclick="loadOrders()">↻ REFRESH</button></div>
+        </div>
+        <div class="studio-panel">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;"><input id="orderSearchInput" class="order-search" placeholder="🔍 Search - Name, Phone, Order ID..." oninput="orderSearch=this.value.toLowerCase();renderOrders();"></div>
+          <div class="orders-toolbar">
+            <button class="order-filter-btn active" data-filter="all" onclick="setOrderFilter('all',this)">ALL</button>
+            <button class="order-filter-btn" data-filter="new" onclick="setOrderFilter('new',this)">NEW</button>
+            <button class="order-filter-btn" data-filter="confirmed" onclick="setOrderFilter('confirmed',this)">CONFIRMED</button>
+            <button class="order-filter-btn" data-filter="done" onclick="setOrderFilter('done',this)">DONE</button>
+            <button class="order-filter-btn" data-filter="cancelled" onclick="setOrderFilter('cancelled',this)">CANCELLED</button>
+          </div>
+          <div id="ordersContainer"><div class="empty-state"><div class="empty-icon">▤</div><h3>Loading orders...</h3><p>Please wait...</p></div></div>
+        </div>
+      </section>
+      <section class="studio-section" id="inventory">
+        <div class="section-heading"><div><p class="studio-overline">STOCK CONTROL</p><h2>Inventory</h2></div></div>
+        <div class="studio-panel"><div id="inventoryContainer"><div class="empty-state"><div class="empty-icon">▦</div><h3>Inventory Management</h3><p>Stock levels and availability will appear here.</p></div></div></div>
+      </section>
+      <section class="studio-section" id="settings">
+        <div class="section-heading"><div><p class="studio-overline">ACCOUNT & STORE</p><h2>Settings</h2></div></div>
+        <div class="studio-panel"><div id="sellerSettings">
+          <div id="settingsView">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;">
+              <div><h3 id="viewStoreName" style="font-family:'Cormorant Garamond',serif;font-size:28px;margin:0;">SHERIX</h3><p id="viewOwnerName" style="color:#e33c56;font-size:16px;font-weight:700;margin:6px 0 0;">Farman Shinwari</p><p style="color:#888;font-size:12px;margin:4px 0;">Store Owner • SHERIX Seller Studio</p></div>
+              <button onclick="openSettingsEdit()" style="background:linear-gradient(110deg,#8e1930,#bd304a);border:1px solid #c63b55;color:#fff;padding:12px 22px;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:8px;">✏️ EDIT PROFILE</button>
+            </div>
+            <div id="settingsViewGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;">
+              <div class="set-info-box"><small>📱 WHATSAPP</small><div id="viewWhatsApp">03075689144</div></div>
+              <div class="set-info-box"><small>✉️ EMAIL</small><div id="viewEmail">-</div></div>
+              <div class="set-info-box" style="grid-column:1/-1;"><small>📍 STORE ADDRESS</small><div id="viewAddress">-</div></div>
+            </div>
+          </div>
+          <div id="settingsEdit" style="display:none;">
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 18px;">✏️ Edit Profile</h3>
+            <div id="settingsEditGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div><label class="set-label">STORE NAME *</label><input id="setStoreName" class="set-input" placeholder="SHERIX"></div>
+              <div><label class="set-label">YOUR NAME *</label><input id="setOwnerName" class="set-input" placeholder="Farman Shinwari"></div>
+              <div><label class="set-label">WHATSAPP NUMBER *</label><input id="setWhatsApp" class="set-input" placeholder="03xx-xxxxxxx"></div>
+              <div><label class="set-label">EMAIL</label><input id="setEmail" class="set-input" placeholder="Email (optional)"></div>
+              <div style="grid-column:1/-1;"><label class="set-label">STORE ADDRESS</label><input id="setAddress" class="set-input" placeholder="Shop Address, City"></div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;"><button onclick="saveSellerSettings()" class="set-btn-save">💾 SAVE CHANGES</button><button onclick="closeSettingsEdit()" class="set-btn-cancel">CANCEL</button></div>
+            <p id="settingsMsg" style="text-align:center;color:#54c88c;font-size:12px;margin-top:12px;min-height:18px;"></p>
+          </div>
+        </div></div>
+      </section>
+      <footer class="studio-footer">SHERIX <span>— RULE YOUR TIME.</span><small>POWERED BY ALI TEC CORPORATION</small></footer>
+      <div class="product-modal" id="productModal" aria-hidden="true">
+        <div class="product-modal-backdrop" data-close-product-modal></div>
+        <div class="product-modal-content" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
+          <div class="product-modal-header"><div><p class="studio-overline">SHERIX SELLER STUDIO</p><h2 id="productModalTitle">Add New <span>Watch</span></h2><p>Introduce a new timepiece to your collection.</p></div><button type="button" class="product-modal-close" data-close-product-modal aria-label="Close">×</button></div>
+          <form id="productForm">
+            <div class="form-section"><h3>01 — Product Images</h3><label for="productImages">Watch Images *</label><input type="file" id="productImages" name="images" accept="image/jpeg,image/png,image/webp" multiple required><small>JPG, PNG or WEBP. Maximum 5 MB per image.</small><div id="imagePreview" class="image-preview"></div></div>
+            <div class="form-section"><h3>02 — Product Information</h3><div class="form-grid">
+              <div class="form-field"><label for="productName">Product Name *</label><input id="productName" name="name" type="text" maxlength="150" required placeholder="e.g. Classic Chronograph"></div>
+              <div class="form-field"><label for="productBrand">Brand *</label><input id="productBrand" name="brand" type="text" maxlength="100" required placeholder="Watch brand"></div>
+              <div class="form-field"><label for="productModel">Model *</label><input id="productModel" name="model" type="text" maxlength="100" required placeholder="Model number"></div>
+              <div class="form-field"><label for="productCategory">Category *</label><select id="productCategory" name="category" required><option value="">Select category</option><option value="men">Men's Watches</option><option value="women">Women's Watches</option><option value="unisex">Unisex Watches</option><option value="smart">Smart Watches</option><option value="luxury">Luxury Watches</option></select></div>
+            </div><div class="form-field"><label for="productDescription">Description *</label><textarea id="productDescription" name="description" rows="5" maxlength="3000" required placeholder="Describe the watch, its design and key features..."></textarea></div></div>
+            <div class="form-section"><h3>03 — Pricing & Delivery</h3><div class="form-grid">
+              <div class="form-field"><label for="productPrice">Selling Price (PKR) *</label><input id="productPrice" name="price" type="number" min="1" step="1" required placeholder="e.g. 12500"></div>
+              <div class="form-field"><label for="productOriginalPrice">Original Price (PKR)</label><input id="productOriginalPrice" name="originalPrice" type="number" min="1" step="1" placeholder="Optional"></div>
+              <div class="form-field"><label for="productDelivery">Delivery Charges (PKR) *</label><input id="productDelivery" name="deliveryCharge" type="number" min="0" step="1" required placeholder="e.g. 250"></div>
+              <div class="form-field"><label for="productStock">Stock Quantity *</label><input id="productStock" name="stock" type="number" min="0" step="1" required placeholder="e.g. 10"></div>
+              <div class="form-field"><label for="productSKU">SKU / Product Code *</label><input id="productSKU" name="sku" type="text" maxlength="60" required placeholder="e.g. SHX-W-001"></div>
+            </div></div>
+            <div class="form-section"><h3>04 — Watch Specifications</h3><div class="form-grid">
+              <div class="form-field"><label for="productMovement">Movement</label><input id="productMovement" name="movement" type="text" maxlength="100" placeholder="Quartz / Automatic"></div>
+              <div class="form-field"><label for="productStrap">Strap Material</label><input id="productStrap" name="strapMaterial" type="text" maxlength="100" placeholder="Leather / Stainless Steel"></div>
+              <div class="form-field"><label for="productCase">Case Material</label><input id="productCase" name="caseMaterial" type="text" maxlength="100" placeholder="Stainless Steel"></div>
+              <div class="form-field"><label for="productDial">Dial Color</label><input id="productDial" name="dialColor" type="text" maxlength="60" placeholder="Black / Silver"></div>
+              <div class="form-field"><label for="productWater">Water Resistance</label><input id="productWater" name="waterResistance" type="text" maxlength="60" placeholder="e.g. 30 meters"></div>
+              <div class="form-field"><label for="productWarranty">Warranty</label><input id="productWarranty" name="warranty" type="text" maxlength="100" placeholder="e.g. 1 Year"></div>
+            </div></div>
+            <div class="form-section"><h3>05 — Publishing</h3><div class="form-field"><label for="productStatus">Product Status *</label><select id="productStatus" name="status" required><option value="draft">Save as Draft</option><option value="active">Publish Product</option></select></div></div>
+            <div id="productFormMessage" role="status" aria-live="polite"></div>
+            <div class="product-form-actions"><button type="button" class="secondary-button" data-close-product-modal>Cancel</button><button type="submit" class="primary-button" id="saveProductButton">SAVE PRODUCT</button></div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="js/script.js"></script>
+  <script>
+    // FIXED: No PIN. Auth is handled by js/script.js via /auth/me -> redirects to login.html if not logged in
+    // FIXED: Use API_BASE_URL from script.js, not hardcoded localhost
+    const ORDERS_API = (typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : "https://sherix-backend.onrender.com/api");
+    let allOrders = []; let orderFilter = "all"; let orderSearch = ""; let lastOrderCount = 0; let firstLoad = true;
+    // Backend fields: full_name / mobile_number / full_address / grand_total
+    // Old fields: customer_name / customer_phone / customer_address / total_amount - dono support karte hain
+    const oName = o => o.full_name || o.customer_name || "-";
+    const oPhone = o => o.mobile_number || o.customer_phone || "";
+    const oAddr = o => o.full_address || o.customer_address || "";
+    const oEmail = o => o.email || o.customer_email || "";
+    const oTotal = o => Number(o.grand_total ?? o.total_amount ?? o.total ?? 0);
+    function cleanPhone(p){ if(!p) return ""; let d = String(p).replace(/\D/g,""); if(d.startsWith("0")) d = "92" + d.slice(1); if(!d.startsWith("92") && d.length===10) d = "92" + d; return d; }
+    function formatDate(d){ try { return new Date(d).toLocaleString("en-PK", { dateStyle:"medium", timeStyle:"short" }); } catch(e){ return d || ""; } }
+    function setOrderFilter(f, btn){ orderFilter = f; document.querySelectorAll(".order-filter-btn").forEach(b=>b.classList.remove("active")); if(btn) btn.classList.add("active"); renderOrders(); }
+    function playNewOrderSound(){ try{ let ctx = new (window.AudioContext||window.webkitAudioContext)(); [0,0.15,0.3].forEach((t,i)=>{ let o=ctx.createOscillator(), g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = i===2?880:660; g.gain.value=0.15; o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+0.12); }); }catch(e){} }
+    function showNewOrderToast(name, id){ let t=document.getElementById("newOrderToast"); document.getElementById("toastText").textContent = `New Order #${id} - ${name} !`; t.style.display="block"; setTimeout(()=>t.style.display="none", 6000); }
+    function copyOrderText(id){
+      let o = allOrders.find(x=>String(x.id)===String(id)); if(!o) return;
+      let items = o.items || []; if(typeof items==="string"){ try{items=JSON.parse(items)}catch(e){items=[]} }
+      let txt = `ORDER #${o.id}\nName: ${oName(o)}\nPhone: ${oPhone(o)}\nAddress: ${oAddr(o)}\nTotal: Rs ${oTotal(o).toLocaleString()}\nItems: ${items.map(i=>i.name||i.brand+" "+i.model).join(", ")}`;
+      navigator.clipboard.writeText(txt).then(()=>alert("✅ Order Copied!"));
+    }
+    function exportOrdersCSV(){
+      if(allOrders.length===0) return alert("No orders to export!");
+      let csv = "Order ID,Name,Phone,Address,Total,Status,Date\n";
+      allOrders.forEach(o=>{ csv += `${o.id},"${oName(o)}","${oPhone(o)}","${oAddr(o).replace(/"/g,'')}",${oTotal(o)},${o.status},"${o.created_at}"\n`; });
+      let a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download="sherix-orders.csv"; a.click();
+    }
+    async function loadOrders(){
+      try {
+        const res = await fetch(`${ORDERS_API}/orders`, { credentials: "include" });
+        if(res.status===401){ window.location.replace("login.html"); return; }
+        const data = await res.json(); allOrders = data.orders || [];
+        if(!firstLoad && allOrders.length > lastOrderCount){
+          let newest = allOrders[0]; playNewOrderSound(); showNewOrderToast(oName(newest), newest.id);
+          document.getElementById("navNewDot").style.display="inline-block";
+        }
+        firstLoad=false; lastOrderCount = allOrders.length;
+        renderOrders(); renderRecentOrders(); updateStats();
+      } catch(e){ document.getElementById("ordersContainer").innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><h3>Cannot load orders</h3><p>Backend on karo. ${e.message}</p></div>`; }
+    }
+    function updateStats(){
+      let totalEl=document.getElementById("totalOrders"); let pendEl=document.getElementById("pendingOrders");
+      if(totalEl) totalEl.textContent = allOrders.length;
+      if(pendEl) pendEl.textContent = allOrders.filter(o=>o.status==="new").length;
+      let conf=document.getElementById("confirmedOrders"); if(conf) conf.textContent = allOrders.filter(o=>o.status==="confirmed").length;
+      let done=document.getElementById("doneOrders"); if(done) done.textContent = allOrders.filter(o=>o.status==="done").length;
+      let rev = allOrders.filter(o=>o.status==="confirmed"||o.status==="done").reduce((s,o)=>s+oTotal(o),0);
+      let revEl=document.getElementById("totalRevenue"); if(revEl) revEl.textContent = "Rs " + rev.toLocaleString();
+      let dot=document.getElementById("navNewDot"); if(dot) dot.style.display = allOrders.some(o=>o.status==="new") ? "inline-block" : "none";
+    }
+    function renderOrders(){
+      const box = document.getElementById("ordersContainer"); if(!box) return;
+      let list = allOrders.filter(o => orderFilter==="all" || o.status===orderFilter);
+      if(orderSearch){ list = list.filter(o => oName(o).toLowerCase().includes(orderSearch) || oPhone(o).includes(orderSearch) || String(o.id).includes(orderSearch)); }
+      if(list.length===0){ box.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><h3>No ${orderFilter==="all"?"":orderFilter} orders</h3><p>New customer orders will be listed here.</p></div>`; return; }
+      box.innerHTML = list.map(o=>{
+        let items = o.items || []; if(typeof items==="string"){ try{ items=JSON.parse(items); }catch(e){ items=[]; } }
+        let itemsHtml = items.map(it=>`<div class="order-item"><img src="${it.image_url||''}" onerror="this.style.display='none'"><div style="flex:1"><b>${it.name||it.brand+" "+it.model}</b><br><small>${it.brand||''} ${it.model||''}</small><br><span>Rs ${Number(it.price||0).toLocaleString()}</span></div></div>`).join("");
+        let waPhone = cleanPhone(oPhone(o));
+        return `<div class="order-card ${o.status==="new"?"new-order":""}"><div class="order-card-head"><div><h3>Order #${o.id} - ${oName(o)}</h3><small>${formatDate(o.created_at)} • ${oPhone(o)}</small><br><small>📍 ${oAddr(o)}</small>${oEmail(o)?`<br><small>✉️ ${oEmail(o)}</small>`:''}</div><span class="order-status ${o.status}">${o.status}</span></div><div class="order-items">${itemsHtml}</div><div class="order-total">Total: <span>Rs ${oTotal(o).toLocaleString()}</span></div><div class="order-actions"><a class="wa-action" target="_blank" href="https://wa.me/${waPhone}?text=${encodeURIComponent('Assalam-o-Alaikum '+oName(o)+', SHERIX se baat kar raha hun. Aapka Order #'+o.id+' confirm hai. Shukriya!')}">💬 WHATSAPP CUSTOMER</a><button onclick="copyOrderText(${o.id})">📋 COPY</button>${o.status==="new"?`<button class="confirm-action" onclick="changeOrderStatus(${o.id},'confirmed')">✓ CONFIRM ORDER</button>`:''}${o.status==="confirmed"?`<button class="done-action" onclick="changeOrderStatus(${o.id},'done')">✓ MARK DONE</button>`:''}${o.status!=="cancelled"&&o.status!=="done"?`<button onclick="changeOrderStatus(${o.id},'cancelled')">✕ CANCEL</button>`:''}</div></div>`;
+      }).join("");
+    }
+    function renderRecentOrders(){
+      const box = document.getElementById("recentOrders"); if(!box) return; if(allOrders.length===0) return;
+      let recent = allOrders.slice(0,3);
+      box.innerHTML = recent.map(o=>{ let items = o.items || []; if(typeof items==="string"){ try{ items=JSON.parse(items); }catch(e){ items=[]; } } let names = items.map(i=>i.name||i.brand+" "+i.model).join(", "); return `<div class="order-card" style="padding:14px"><div class="order-card-head"><div><h3>${oName(o)} - Order #${o.id}</h3><small>${names}</small><br><small>${formatDate(o.created_at)}</small></div><span class="order-status ${o.status}">${o.status}</span></div><div class="order-total">Total: <span>Rs ${oTotal(o).toLocaleString()}</span></div></div>`; }).join("");
+    }
+    async function changeOrderStatus(id, status){ try { await fetch(`${ORDERS_API}/orders/${id}/status`, { method: "PATCH", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) }); loadOrders(); } catch(e){ alert("Status update failed"); } }
+    let sellerSettings = JSON.parse(localStorage.getItem("sherix_seller_settings") || JSON.stringify({ storeName: "SHERIX", ownerName: "Farman Shinwari", whatsapp: "03075689144", email: "", address: "" }));
+    function applySellerSettings(){ document.getElementById("viewStoreName").textContent = sellerSettings.storeName || "SHERIX"; document.getElementById("viewOwnerName").textContent = sellerSettings.ownerName || "Farman"; document.getElementById("viewWhatsApp").textContent = sellerSettings.whatsapp || "-"; document.getElementById("viewEmail").textContent = sellerSettings.email || "-"; document.getElementById("viewAddress").textContent = sellerSettings.address || "-"; let miniSmall = document.querySelector(".seller-mini-profile small"); if(miniSmall) miniSmall.textContent = "Store Owner • " + sellerSettings.storeName; let welcomeName = document.querySelector(".welcome-banner h2 span"); if(welcomeName){ let firstName = (sellerSettings.ownerName || "Farman").split(" ")[0]; welcomeName.textContent = firstName + "."; } let brandName = document.querySelector(".studio-brand .brand-name"); if(brandName) brandName.textContent = sellerSettings.storeName.toUpperCase().slice(0,12); }
+    function openSettingsEdit(){ document.getElementById("settingsView").style.display = "none"; document.getElementById("settingsEdit").style.display = "block"; document.getElementById("setStoreName").value = sellerSettings.storeName; document.getElementById("setOwnerName").value = sellerSettings.ownerName; document.getElementById("setWhatsApp").value = sellerSettings.whatsapp; document.getElementById("setEmail").value = sellerSettings.email; document.getElementById("setAddress").value = sellerSettings.address; document.getElementById("settingsMsg").textContent = ""; }
+    function closeSettingsEdit(){ document.getElementById("settingsEdit").style.display = "none"; document.getElementById("settingsView").style.display = "block"; }
+    function saveSellerSettings(){ let storeName = document.getElementById("setStoreName").value.trim(); let ownerName = document.getElementById("setOwnerName").value.trim(); let whatsapp = document.getElementById("setWhatsApp").value.trim(); if(!storeName || !ownerName || !whatsapp){ document.getElementById("settingsMsg").style.color = "#e33c56"; document.getElementById("settingsMsg").textContent = "Store Name, Your Name aur WhatsApp zaroori hai!"; return; } sellerSettings = { storeName: storeName, ownerName: ownerName, whatsapp: whatsapp, email: document.getElementById("setEmail").value.trim(), address: document.getElementById("setAddress").value.trim() }; localStorage.setItem("sherix_seller_settings", JSON.stringify(sellerSettings)); applySellerSettings(); document.getElementById("settingsMsg").style.color = "#54c88c"; document.getElementById("settingsMsg").textContent = "✅ Saved! Profile update ho gaya!"; setTimeout(closeSettingsEdit, 800); }
+    applySellerSettings();
+    // Orders auto-refresh - script.js pehle /auth/me check karega, fail hua to login.html pe bhej dega
+    loadOrders();
+    setInterval(loadOrders, 15000);
+  </script>
+</body>
+</html>
