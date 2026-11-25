@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://sherix-backend.onrender.com";
+const API_BASE_URL = "https://sherix-backend.onrender.com/api";
 
 const loginForm = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
