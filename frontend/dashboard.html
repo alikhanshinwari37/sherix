@@ -213,7 +213,7 @@
   <script>
     // FIXED: No PIN. Auth is handled by js/script.js via /auth/me -> redirects to login.html if not logged in
     // FIXED: Use API_BASE_URL from script.js, not hardcoded localhost
-    const ORDERS_API = (typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : "http://127.0.0.1:5000/api");
+    const ORDERS_API = (typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : "https://sherix-backend.onrender.com");
     let allOrders = []; let orderFilter = "all"; let orderSearch = ""; let lastOrderCount = 0; let firstLoad = true;
     // Backend fields: full_name / mobile_number / full_address / grand_total
     // Old fields: customer_name / customer_phone / customer_address / total_amount - dono support karte hain
