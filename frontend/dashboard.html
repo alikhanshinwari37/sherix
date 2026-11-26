@@ -6,1561 +6,1353 @@
   <meta name="theme-color" content="#080808">
   <title>SHERIX | Seller Studio</title>
   <link rel="stylesheet" href="css/style.css">
+
   <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
-:root {
-  --bg: #080808;
-  --panel: #111111;
-  --panel-2: #171313;
-  --red: #e33c56;
-  --red-dark: #8e1930;
-  --red-light: #ff7185;
-  --gold: #c9a76a;
-  --text: #f6f1ef;
-  --muted: #929090;
-  --border: rgba(255,255,255,.085);
-  --green: #54c88c;
-  --shadow: 0 22px 65px rgba(0,0,0,.42);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scrollbar-color: #772033 #090909;
-}
-
-body {
-  margin: 0;
-  background:
-    radial-gradient(ellipse at 80% 0%, rgba(130,25,48,.13), transparent 38%),
-    radial-gradient(ellipse at 0% 80%, rgba(100,20,35,.08), transparent 35%),
-    var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  overflow-x: hidden;
-}
-
-button, input, select, textarea {
-  font: inherit;
-}
-
-button {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--red-light);
-  outline-offset: 3px;
-}
-
-/* MAIN LAYOUT */
-
-.studio {
-  min-height: 100vh;
-  display: flex;
-  background: transparent;
-}
-
-.studio-sidebar {
-  width: 260px;
-  min-width: 260px;
-  height: 100vh;
-  position: sticky;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 30px 19px 20px;
-  background: linear-gradient(180deg,#151112 0%,#0d0b0c 100%);
-  border-right: 1px solid rgba(227,60,86,.16);
-  box-shadow: 15px 0 50px rgba(0,0,0,.22);
-  z-index: 100;
-}
-
-.studio-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 3px 9px 30px;
-  color: white;
-  text-decoration: none;
-}
-
-.brand-mark {
-  width: 43px;
-  height: 43px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(227,60,86,.7);
-  background: linear-gradient(145deg,#9c1d38,#300b16);
-  color: white;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 29px;
-  box-shadow: 0 0 25px rgba(227,60,86,.2);
-}
-
-.brand-name {
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 27px;
-  font-weight: 700;
-  letter-spacing: 4px;
-}
-
-.sidebar-label,
-.studio-overline {
-  color: var(--gold);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 2.8px;
-  text-transform: uppercase;
-}
-
-.sidebar-label {
-  padding: 0 11px;
-  margin: 0 0 14px;
-}
-
-.studio-nav {
-  display: grid;
-  gap: 7px;
-}
-
-.nav-item {
-  width: 100%;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 0 14px;
-  border: 1px solid transparent;
-  border-radius: 9px;
-  background: transparent;
-  color: #aaa3a3;
-  font-size: 12px;
-  font-weight: 600;
-  text-align: left;
-  cursor: pointer;
-  transition: .25s ease;
-}
-
-.nav-item > span:first-child {
-  width: 20px;
-  color: #c17b88;
-  font-size: 17px;
-  text-align: center;
-}
-
-.nav-item:hover {
-  color: white;
-  background: rgba(255,255,255,.045);
-  border-color: var(--border);
-  transform: translateX(3px);
-}
-
-.nav-item.active {
-  color: white;
-  background: linear-gradient(100deg,rgba(167,25,50,.29),rgba(167,25,50,.055));
-  border-color: rgba(227,60,86,.3);
-  box-shadow: inset 3px 0 var(--red), 0 8px 25px rgba(0,0,0,.2);
-}
-
-.nav-item.active > span:first-child {
-  color: var(--red-light);
-}
-
-.sidebar-bottom {
-  margin-top: auto;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
-}
-
-.seller-mini-profile {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding: 10px 5px 17px;
-}
-
-.seller-avatar,
-.header-avatar {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: linear-gradient(145deg,#a51f3a,#35101a);
-  border: 1px solid rgba(255,255,255,.18);
-  color: white;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 20px;
-}
-
-.seller-mini-profile strong {
-  display: block;
-  color: #f6eeee;
-  font-size: 11px;
-}
-
-.seller-mini-profile small {
-  display: block;
-  color: #817879;
-  font-size: 10px;
-  margin-top: 4px;
-}
-
-.logout-button {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid rgba(227,60,86,.18);
-  border-radius: 8px;
-  background: rgba(227,60,86,.055);
-  color: #d5a0a8;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: .25s;
-}
-
-.logout-button:hover {
-  background: rgba(227,60,86,.16);
-  color: white;
-  border-color: var(--red);
-}
-
-/* MAIN CONTENT */
-
-.studio-main {
-  flex: 1;
-  min-width: 0;
-  padding: 30px clamp(18px,3.5vw,48px) 22px;
-}
-
-.studio-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding-bottom: 25px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 28px;
-}
-
-.studio-header .studio-overline {
-  margin: 0 0 5px;
-}
-
-.studio-header h1 {
-  margin: 0;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: clamp(34px,4vw,48px);
-  font-weight: 500;
-  letter-spacing: -.5px;
-}
-
-.studio-header h1 span,
-.welcome-banner h2 span,
-.section-heading h2 span {
-  color: var(--red-light);
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-}
-
-.header-right button {
-  transition: .25s;
-}
-
-.header-right button:hover {
-  border-color: var(--red)!important;
-  background: #211116!important;
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #c7c1c1;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 12px rgba(84,200,140,.8);
-  animation: statusGlow 2s infinite;
-}
-
-@keyframes statusGlow {
-  50% { box-shadow: 0 0 3px rgba(84,200,140,.3); }
-}
-
-/* SECTIONS */
-
-.studio-section {
-  display: none;
-  animation: sectionEnter .4s ease both;
-}
-
-.studio-section.active {
-  display: block;
-}
-
-@keyframes sectionEnter {
-  from { opacity: 0; transform: translateY(9px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin: 0 0 22px;
-}
-
-.section-heading .studio-overline {
-  margin: 0 0 5px;
-}
-
-.section-heading h2,
-.panel-heading h2 {
-  margin: 0;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 34px;
-  font-weight: 500;
-}
-
-.primary-button {
-  min-height: 43px;
-  padding: 0 19px;
-  border: 1px solid #c53b54;
-  border-radius: 7px;
-  background: linear-gradient(110deg,#81172d,#bd2944);
-  color: white;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
-  cursor: pointer;
-  box-shadow: 0 7px 22px rgba(167,25,50,.2);
-  transition: .25s ease;
-}
-
-.primary-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(227,60,86,.3);
-  filter: brightness(1.12);
-}
-
-.text-button {
-  border: 0;
-  background: transparent;
-  color: var(--red-light);
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.text-button:hover {
-  color: white;
-}
-
-/* WELCOME */
-
-.welcome-banner {
-  min-height: 220px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-  padding: 35px clamp(22px,4vw,48px);
-  margin-bottom: 23px;
-  border: 1px solid rgba(227,60,86,.23);
-  border-radius: 14px;
-  background:
-    radial-gradient(ellipse at 85% 45%,rgba(185,35,65,.25),transparent 42%),
-    linear-gradient(110deg,#211015,#110c0e 65%,#180b10);
-  box-shadow: var(--shadow);
-}
-
-.welcome-banner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg,transparent 40%,rgba(255,255,255,.025),transparent 75%);
-  pointer-events: none;
-}
-
-.welcome-banner .studio-overline {
-  margin: 0 0 12px;
-}
-
-.welcome-banner h2 {
-  margin: 0;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: clamp(36px,4.5vw,55px);
-  line-height: .98;
-  font-weight: 500;
-}
-
-.welcome-banner p:not(.studio-overline) {
-  color: #aaa0a1;
-  font-size: 12px;
-  line-height: 1.8;
-  margin: 13px 0 0;
-}
-
-.welcome-symbol {
-  width: 145px;
-  height: 145px;
-  display: grid;
-  place-items: center;
-  margin-right: 5%;
-  border: 1px solid rgba(201,167,106,.5);
-  outline: 1px solid rgba(201,167,106,.15);
-  outline-offset: 9px;
-  border-radius: 50%;
-  color: rgba(201,167,106,.85);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 100px;
-  font-weight: 500;
-  text-shadow: 0 0 35px rgba(201,167,106,.2);
-  box-shadow: 0 0 65px rgba(227,60,86,.12),inset 0 0 35px rgba(227,60,86,.1);
-}
-
-/* STATS */
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4,minmax(0,1fr));
-  gap: 14px;
-  margin-bottom: 20px;
-}
-
-.stat-card {
-  min-width: 0;
-  min-height: 145px;
-  position: relative;
-  overflow: hidden;
-  padding: 21px 19px;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  background: linear-gradient(145deg,#191516,#100e0e);
-  box-shadow: 0 10px 30px rgba(0,0,0,.16);
-  transition: .3s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(227,60,86,.4)!important;
-  box-shadow: 0 17px 38px rgba(0,0,0,.35);
-}
-
-.stat-card p {
-  margin: 0 0 13px;
-  color: #aaa0a1;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .7px;
-}
-
-.stat-card h3 {
-  margin: 0;
-  color: #fff;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: clamp(29px,3vw,39px);
-  font-weight: 600;
-  line-height: 1;
-}
-
-.stat-card span {
-  display: block;
-  margin-top: 11px;
-  color: #777071;
-  font-size: 10px;
-}
-
-.stat-card.revenue h3 {
-  color: var(--green)!important;
-}
-
-/* PANELS */
-
-.studio-panel {
-  padding: clamp(17px,2.3vw,25px);
-  margin-bottom: 20px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: linear-gradient(145deg,rgba(25,21,22,.97),rgba(13,12,12,.98));
-  box-shadow: 0 13px 35px rgba(0,0,0,.18);
-}
-
-.panel-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.panel-heading .studio-overline {
-  margin: 0 0 5px;
-}
-
-.panel-heading h2 {
-  font-size: 29px;
-}
-
-.quick-actions {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 13px;
-}
-
-.quick-action {
-  min-height: 105px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 17px;
-  border: 1px solid rgba(255,255,255,.075);
-  border-radius: 9px;
-  background: linear-gradient(120deg,#1c1517,#100e0e);
-  color: white;
-  text-align: left;
-  cursor: pointer;
-  transition: .25s ease;
-}
-
-.quick-action:hover {
-  transform: translateY(-3px);
-  border-color: rgba(227,60,86,.4);
-  background: #201216;
-}
-
-.action-icon {
-  color: var(--red-light);
-  font-size: 23px;
-  margin-bottom: 10px;
-}
-
-.quick-action strong {
-  font-size: 12px;
-}
-
-.quick-action small {
-  margin-top: 5px;
-  color: #898081;
-  font-size: 10px;
-}
-
-.action-arrow {
-  position: absolute;
-  right: 17px;
-  top: 19px;
-  color: var(--gold);
-  font-size: 20px;
-}
-
-/* PRODUCT TOOLBAR AND FORMS */
-
-.product-toolbar {
-  display: flex;
-  gap: 11px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.product-toolbar input,
-.product-toolbar select,
-.order-search,
-.set-input,
-.form-field input,
-.form-field select,
-.form-field textarea,
-#productImages {
-  min-height: 44px;
-  width: 100%;
-  padding: 11px 14px;
-  border: 1px solid #393033;
-  border-radius: 7px;
-  background: #0b0a0a;
-  color: #f5eeee;
-  font-size: 12px;
-  outline: none;
-  transition: .25s;
-}
-
-.product-toolbar input {
-  flex: 1;
-  min-width: 180px;
-}
-
-.product-toolbar select {
-  width: auto;
-  min-width: 160px;
-}
-
-.product-toolbar input:focus,
-.product-toolbar select:focus,
-.order-search:focus,
-.set-input:focus,
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
-  border-color: var(--red);
-  box-shadow: 0 0 0 3px rgba(227,60,86,.09);
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #70696a;
-}
-
-select option {
-  background: #151111;
-  color: white;
-}
-
-.set-input {
-  margin: 0!important;
-}
-
-.set-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #c9bfc0;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-#sellerSettings {
-  padding: clamp(17px,2.5vw,27px);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 11px;
-  background: linear-gradient(145deg,#191516,#0d0b0c);
-}
-
-.set-info-box {
-  min-width: 0;
-  padding: 16px;
-  border: 1px solid rgba(255,255,255,.075);
-  border-radius: 9px;
-  background: #0b090a;
-  transition: .25s;
-}
-
-.set-info-box:hover {
-  border-color: rgba(227,60,86,.3);
-}
-
-.set-info-box small {
-  color: var(--gold);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.set-info-box div {
-  margin-top: 8px;
-  color: #eee5e5;
-  font-size: 13px;
-  line-height: 1.7;
-  overflow-wrap: anywhere;
-}
-
-.set-btn-save,
-.set-btn-cancel {
-  min-height: 47px;
-  padding: 0 18px;
-  border-radius: 7px;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.2px;
-  cursor: pointer;
-  transition: .25s;
-}
-
-.set-btn-save {
-  background: linear-gradient(110deg,#8e1930,#bd304a);
-  border: 1px solid #c63b55;
-  color: white;
-}
-
-.set-btn-cancel {
-  background: #211c1d;
-  border: 1px solid #474041;
-  color: #eee;
-}
-
-.set-btn-save:hover,
-.set-btn-cancel:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.15);
-}
-
-/* ORDER FILTERS */
-
-.orders-toolbar {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 17px;
-}
-
-.orders-toolbar button {
-  padding: 10px 17px;
-  border: 1px solid #393033;
-  border-radius: 30px;
-  background: #100e0e;
-  color: #aaa1a2;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: .25s;
-}
-
-.orders-toolbar button:hover {
-  border-color: rgba(227,60,86,.5);
-  color: white;
-}
-
-.orders-toolbar button.active {
-  background: linear-gradient(110deg,#84182f,#bd2944);
-  border-color: var(--red);
-  color: white;
-  box-shadow: 0 6px 20px rgba(167,25,50,.25);
-}
-
-.order-search {
-  flex: 1;
-  min-width: 200px;
-  border-radius: 8px;
-}
-
-/* ORDER CARDS */
-
-.order-card {
-  position: relative;
-  overflow: hidden;
-  padding: 20px;
-  margin-bottom: 14px;
-  border: 1px solid rgba(255,255,255,.085);
-  border-radius: 11px;
-  background: linear-gradient(145deg,#1b1617,#0d0b0c);
-  box-shadow: 0 9px 27px rgba(0,0,0,.2);
-  transition: .3s ease;
-}
-
-.order-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg,transparent,#a71932,#e33c56,#c9a76a,transparent);
-}
-
-.order-card:hover {
-  border-color: rgba(227,60,86,.35);
-  transform: translateY(-2px);
-  box-shadow: 0 15px 38px rgba(0,0,0,.35);
-}
-
-.order-card.new-order {
-  border-color: rgba(227,60,86,.5);
-  box-shadow: 0 0 25px rgba(227,60,86,.1);
-}
-
-.order-card-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 13px;
-  flex-wrap: wrap;
-}
-
-.order-card h3 {
-  margin: 0;
-  color: #fff;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 22px;
-  font-weight: 600;
-}
-
-.order-card small {
-  color: #8e8586;
-  font-size: 10px;
-  line-height: 1.8;
-  overflow-wrap: anywhere;
-}
-
-.order-status {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7px 12px;
-  border: 1px solid;
-  border-radius: 30px;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.order-status.new {
-  background: rgba(227,60,86,.13);
-  border-color: rgba(227,60,86,.4);
-  color: #ff788b;
-  animation: pulseNew 2s infinite;
-}
-
-.order-status.confirmed {
-  background: rgba(255,193,7,.1);
-  border-color: rgba(255,193,7,.35);
-  color: #ffc857;
-}
-
-.order-status.done {
-  background: rgba(84,200,140,.1);
-  border-color: rgba(84,200,140,.35);
-  color: #54c88c;
-}
-
-.order-status.cancelled {
-  background: rgba(255,255,255,.055);
-  border-color: #484242;
-  color: #aaa;
-}
-
-@keyframes pulseNew {
-  50% { box-shadow: 0 0 0 5px rgba(227,60,86,0); }
-}
-
-.order-items {
-  display: grid;
-  gap: 9px;
-  margin: 17px 0;
-}
-
-.order-item {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  min-width: 0;
-  padding: 10px;
-  border: 1px solid rgba(255,255,255,.065);
-  border-radius: 8px;
-  background: #0b090a;
-}
-
-.order-item img {
-  width: 62px;
-  height: 62px;
-  flex-shrink: 0;
-  object-fit: cover;
-  border-radius: 5px;
-  border: 1px solid rgba(255,255,255,.12);
-}
-
-.order-item b {
-  color: #eee;
-  font-size: 12px;
-}
-
-.order-item span {
-  color: var(--red-light);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.order-total {
-  margin-top: 12px;
-  color: #ddd;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.order-total span {
-  color: var(--red-light);
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 25px;
-}
-
-.order-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.order-actions button,
-.order-actions a {
-  min-height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 13px;
-  border: 1px solid #403638;
-  border-radius: 6px;
-  background: #191516;
-  color: white;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .7px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: .22s;
-}
-
-.order-actions button:hover,
-.order-actions a:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.16);
-}
-
-.order-actions .wa-action {
-  background: #126b42;
-  border-color: #25a967;
-}
-
-.order-actions .confirm-action {
-  background: linear-gradient(110deg,#8e1930,#bd304a);
-  border-color: var(--red);
-}
-
-.order-actions .done-action {
-  background: #0d5c36;
-  border-color: #54c88c;
-}
-
-/* EMPTY STATES */
-
-.empty-state {
-  padding: 40px 18px;
-  border: 1px dashed rgba(255,255,255,.12);
-  border-radius: 10px;
-  text-align: center;
-  background: rgba(0,0,0,.12);
-}
-
-.empty-icon {
-  margin-bottom: 12px;
-  color: var(--red-light);
-  font-size: 35px;
-}
-
-.empty-state h3 {
-  margin: 0 0 7px;
-  color: #eee;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 24px;
-}
-
-.empty-state p {
-  margin: 0;
-  color: #898080;
-  font-size: 11px;
-  line-height: 1.7;
-}
-
-/* PRODUCT MODAL */
-
-.product-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
-}
-
-.product-modal[aria-hidden="false"] {
-  display: flex;
-}
-
-.product-modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,.82);
-  backdrop-filter: blur(9px);
-}
-
-.product-modal-content {
-  position: relative;
-  z-index: 1;
-  width: min(850px,100%);
-  max-height: 92vh;
-  overflow-y: auto;
-  padding: clamp(18px,3vw,30px);
-  border: 1px solid rgba(227,60,86,.3);
-  border-radius: 13px;
-  background: linear-gradient(145deg,#1b1517,#0b090a);
-  box-shadow: 0 30px 100px rgba(0,0,0,.7);
-  animation: modalEnter .3s ease;
-}
-
-@keyframes modalEnter {
-  from { opacity: 0; transform: translateY(14px) scale(.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.product-modal-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-
-.product-modal-header .studio-overline {
-  margin: 0 0 6px;
-}
-
-.product-modal-header h2 {
-  margin: 0;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 34px;
-  font-weight: 500;
-}
-
-.product-modal-header h2 span {
-  color: var(--red-light);
-}
-
-.product-modal-header p:last-child {
-  color: #93898a;
-  font-size: 11px;
-}
-
-.product-modal-close {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  border: 1px solid #49343a;
-  border-radius: 50%;
-  background: #1a1114;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  transition: .2s;
-}
-
-.product-modal-close:hover {
-  background: var(--red-dark);
-  transform: rotate(90deg);
-}
-
-.form-section {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.form-section h3 {
-  margin: 0 0 17px;
-  color: var(--gold);
-  font-size: 10px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-}
-
-.form-section > label,
-.form-field label {
-  display: block;
-  margin-bottom: 8px;
-  color: #d6cbcc;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.form-section > small {
-  display: block;
-  margin-top: 7px;
-  color: #817879;
-  font-size: 10px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
-.form-field {
-  min-width: 0;
-  margin-bottom: 14px;
-}
-
-.form-field textarea {
-  min-height: 110px;
-  resize: vertical;
-}
-
-.form-field input[type="file"],
-#productImages {
-  padding: 10px;
-}
-
-.image-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.image-preview img {
-  width: 75px;
-  height: 75px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid rgba(227,60,86,.35);
-}
-
-.product-form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding-top: 20px;
-}
-
-.secondary-button {
-  min-height: 43px;
-  padding: 0 18px;
-  border: 1px solid #494041;
-  border-radius: 7px;
-  background: #211b1c;
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-#productFormMessage {
-  margin-top: 12px;
-  color: var(--red-light);
-  font-size: 12px;
-}
-
-/* TOAST */
-
-#newOrderToast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 99999;
-  max-width: min(340px,calc(100vw - 35px));
-  padding: 15px 19px;
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 10px;
-  background: linear-gradient(110deg,#76152b,#bd2944);
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  box-shadow: 0 15px 45px rgba(0,0,0,.5);
-  animation: toastIn .35s ease;
-}
-
-@keyframes toastIn {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.new-dot {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  border-radius: 50%;
-  background: var(--red-light);
-  box-shadow: 0 0 10px var(--red);
-  animation: statusGlow 1.5s infinite;
-}
-
-/* FOOTER */
-
-.studio-footer {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 23px 0 8px;
-  margin-top: 25px;
-  border-top: 1px solid var(--border);
-  color: #d5caca;
-  font-family: 'Cormorant Garamond',serif;
-  font-size: 19px;
-  letter-spacing: 2px;
-}
-
-.studio-footer span {
-  color: var(--red-light);
-}
-
-.studio-footer small {
-  width: 100%;
-  margin-top: 3px;
-  color: #71696a;
-  font-family: 'DM Sans',sans-serif;
-  font-size: 8px;
-  letter-spacing: 2px;
-}
-
-/* RESPONSIVE TABLET */
-
-@media(max-width:1100px) {
-  .studio-sidebar {
-    width: 225px;
-    min-width: 225px;
+  :root {
+    --bg: #080808;
+    --panel: #111111;
+    --panel-2: #171313;
+    --red: #e33c56;
+    --red-dark: #8e1930;
+    --red-light: #ff7185;
+    --gold: #c9a76a;
+    --text: #f6f1ef;
+    --muted: #929090;
+    --border: rgba(255,255,255,.085);
+    --green: #54c88c;
+    --shadow: 0 22px 65px rgba(0,0,0,.42);
   }
 
-  .studio-main {
-    padding-left: 23px;
-    padding-right: 23px;
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-color: #772033 #090909;
   }
 
-  .stats-grid {
-    grid-template-columns: repeat(2,minmax(0,1fr))!important;
+  body {
+    margin: 0;
+    background:
+      radial-gradient(ellipse at 80% 0%, rgba(130,25,48,.13), transparent 38%),
+      radial-gradient(ellipse at 0% 80%, rgba(100,20,35,.08), transparent 35%),
+      var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    overflow-x: hidden;
   }
-}
 
-/* RESPONSIVE MOBILE */
+  button, input, select, textarea { font: inherit; }
+  button { -webkit-tap-highlight-color: transparent; }
 
-@media(max-width:760px) {
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--red-light);
+    outline-offset: 3px;
+  }
+
   .studio {
-    display: block;
+    min-height: 100vh;
+    display: flex;
+    background: transparent;
   }
 
   .studio-sidebar {
-    position: relative;
-    top: auto;
-    width: 100%;
-    min-width: 0;
-    height: auto;
-    padding: 13px 14px;
-    border-right: 0;
-    border-bottom: 1px solid rgba(227,60,86,.2);
+    width: 260px;
+    min-width: 260px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 19px 20px;
+    background: linear-gradient(180deg,#151112 0%,#0d0b0c 100%);
+    border-right: 1px solid rgba(227,60,86,.16);
+    box-shadow: 15px 0 50px rgba(0,0,0,.22);
+    z-index: 100;
   }
 
   .studio-brand {
-    padding: 0 3px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 3px 9px 30px;
+    color: white;
+    text-decoration: none;
   }
 
   .brand-mark {
-    width: 36px;
-    height: 36px;
-    font-size: 24px;
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(227,60,86,.7);
+    background: linear-gradient(145deg,#9c1d38,#300b16);
+    color: white;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 29px;
+    box-shadow: 0 0 25px rgba(227,60,86,.2);
   }
 
   .brand-name {
-    font-size: 23px;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+
+  .sidebar-label,
+  .studio-overline {
+    color: var(--gold);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
   }
 
   .sidebar-label {
-    display: none;
+    padding: 0 11px;
+    margin: 0 0 14px;
   }
 
-  .studio-nav {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding: 2px 0 5px;
-    scrollbar-width: none;
-  }
-
-  .studio-nav::-webkit-scrollbar {
-    display: none;
-  }
+  .studio-nav { display: grid; gap: 7px; }
 
   .nav-item {
-    width: auto;
-    min-width: max-content;
-    min-height: 40px;
-    justify-content: center;
-    gap: 7px;
-    padding: 0 12px;
-    font-size: 10px;
-  }
-
-  .nav-item:hover {
-    transform: none;
-  }
-
-  .nav-item.active {
-    box-shadow: inset 0 -2px var(--red);
-  }
-
-  .sidebar-bottom {
-    display: none;
-  }
-
-  .studio-main {
-    padding: 19px 14px 18px;
-  }
-
-  .studio-header {
-    align-items: flex-start;
-    padding-bottom: 18px;
-    margin-bottom: 20px;
-  }
-
-  .studio-header h1 {
-    font-size: 35px;
-  }
-
-  .header-right {
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .header-right button {
-    padding: 9px 10px!important;
-    font-size: 9px!important;
-  }
-
-  .status-indicator {
-    font-size: 8px;
-  }
-
-  .header-avatar {
-    display: none;
-  }
-
-  .welcome-banner {
-    min-height: 190px;
-    padding: 25px 20px;
-  }
-
-  .welcome-banner h2 {
-    font-size: 39px;
-  }
-
-  .welcome-banner p:not(.studio-overline) {
-    max-width: 230px;
-    font-size: 10px;
-  }
-
-  .welcome-symbol {
-    width: 75px;
-    height: 75px;
-    margin-right: 5px;
-    font-size: 55px;
-    outline-offset: 5px;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2,minmax(0,1fr))!important;
-    gap: 9px;
-  }
-
-  .stat-card {
-    min-height: 125px;
-    padding: 15px 12px;
-  }
-
-  .stat-card p {
-    font-size: 9px;
-  }
-
-  .stat-card h3 {
-    font-size: 30px;
-  }
-
-  .stat-card span {
-    font-size: 9px;
-    line-height: 1.5;
-  }
-
-  .section-heading h2 {
-    font-size: 30px;
-  }
-
-  .section-heading {
-    align-items: flex-start;
-  }
-
-  .quick-actions {
-    grid-template-columns: 1fr;
-  }
-
-  .studio-panel {
-    padding: 15px;
-  }
-
-  .panel-heading h2 {
-    font-size: 25px;
-  }
-
-  .order-card {
-    padding: 15px;
-  }
-
-  .order-card h3 {
-    font-size: 19px;
-  }
-
-  .order-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .order-actions button,
-  .order-actions a {
     width: 100%;
-    min-width: 0;
-    padding: 9px 6px;
-    font-size: 8px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    color: #aaa3a3;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: .25s ease;
+  }
+
+  .nav-item > span:first-child {
+    width: 20px;
+    color: #c17b88;
+    font-size: 17px;
     text-align: center;
   }
 
-  .order-actions .wa-action {
-    grid-column: 1/-1;
+  .nav-item:hover {
+    color: white;
+    background: rgba(255,255,255,.045);
+    border-color: var(--border);
+    transform: translateX(3px);
   }
 
-  #settingsViewGrid,
-  #settingsEditGrid {
-    grid-template-columns: 1fr!important;
+  .nav-item.active {
+    color: white;
+    background: linear-gradient(100deg,rgba(167,25,50,.29),rgba(167,25,50,.055));
+    border-color: rgba(227,60,86,.3);
+    box-shadow: inset 3px 0 var(--red), 0 8px 25px rgba(0,0,0,.2);
   }
 
-  #settingsViewGrid > *,
-  #settingsEditGrid > * {
-    grid-column: auto!important;
+  .nav-item.active > span:first-child { color: var(--red-light); }
+
+  .sidebar-bottom {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .seller-mini-profile {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 5px 17px;
+  }
+
+  .seller-avatar,
+  .header-avatar {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(145deg,#a51f3a,#35101a);
+    border: 1px solid rgba(255,255,255,.18);
+    color: white;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 20px;
+  }
+
+  .seller-mini-profile strong {
+    display: block;
+    color: #f6eeee;
+    font-size: 11px;
+  }
+
+  .seller-mini-profile small {
+    display: block;
+    color: #817879;
+    font-size: 10px;
+    margin-top: 4px;
+  }
+
+  .logout-button {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(227,60,86,.18);
+    border-radius: 8px;
+    background: rgba(227,60,86,.055);
+    color: #d5a0a8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: .25s;
+  }
+
+  .logout-button:hover {
+    background: rgba(227,60,86,.16);
+    color: white;
+    border-color: var(--red);
+  }
+
+  .studio-main {
+    flex: 1;
+    min-width: 0;
+    padding: 30px clamp(18px,3.5vw,48px) 22px;
+  }
+
+  .studio-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  .studio-header .studio-overline { margin: 0 0 5px; }
+
+  .studio-header h1 {
+    margin: 0;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: clamp(34px,4vw,48px);
+    font-weight: 500;
+    letter-spacing: -.5px;
+  }
+
+  .studio-header h1 span,
+  .welcome-banner h2 span,
+  .section-heading h2 span { color: var(--red-light); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+
+  .header-right button { transition: .25s; }
+
+  .header-right button:hover {
+    border-color: var(--red)!important;
+    background: #211116!important;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #c7c1c1;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px rgba(84,200,140,.8);
+    animation: statusGlow 2s infinite;
+  }
+
+  @keyframes statusGlow {
+    50% { box-shadow: 0 0 3px rgba(84,200,140,.3); }
+  }
+
+  .studio-section {
+    display: none;
+    animation: sectionEnter .4s ease both;
+  }
+
+  .studio-section.active { display: block; }
+
+  @keyframes sectionEnter {
+    from { opacity: 0; transform: translateY(9px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 0 0 22px;
+  }
+
+  .section-heading .studio-overline { margin: 0 0 5px; }
+
+  .section-heading h2,
+  .panel-heading h2 {
+    margin: 0;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 34px;
+    font-weight: 500;
+  }
+
+  .primary-button {
+    min-height: 43px;
+    padding: 0 19px;
+    border: 1px solid #c53b54;
+    border-radius: 7px;
+    background: linear-gradient(110deg,#81172d,#bd2944);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    cursor: pointer;
+    box-shadow: 0 7px 22px rgba(167,25,50,.2);
+    transition: .25s ease;
+  }
+
+  .primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(227,60,86,.3);
+    filter: brightness(1.12);
+  }
+
+  .text-button {
+    border: 0;
+    background: transparent;
+    color: var(--red-light);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .text-button:hover { color: white; }
+
+  .welcome-banner {
+    min-height: 220px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 35px clamp(22px,4vw,48px);
+    margin-bottom: 23px;
+    border: 1px solid rgba(227,60,86,.23);
+    border-radius: 14px;
+    background:
+      radial-gradient(ellipse at 85% 45%,rgba(185,35,65,.25),transparent 42%),
+      linear-gradient(110deg,#211015,#110c0e 65%,#180b10);
+    box-shadow: var(--shadow);
+  }
+
+  .welcome-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg,transparent 40%,rgba(255,255,255,.025),transparent 75%);
+    pointer-events: none;
+  }
+
+  .welcome-banner .studio-overline { margin: 0 0 12px; }
+
+  .welcome-banner h2 {
+    margin: 0;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: clamp(36px,4.5vw,55px);
+    line-height: .98;
+    font-weight: 500;
+  }
+
+  .welcome-banner p:not(.studio-overline) {
+    color: #aaa0a1;
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 13px 0 0;
+  }
+
+  .welcome-symbol {
+    width: 145px;
+    height: 145px;
+    display: grid;
+    place-items: center;
+    margin-right: 5%;
+    border: 1px solid rgba(201,167,106,.5);
+    outline: 1px solid rgba(201,167,106,.15);
+    outline-offset: 9px;
+    border-radius: 50%;
+    color: rgba(201,167,106,.85);
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 100px;
+    font-weight: 500;
+    text-shadow: 0 0 35px rgba(201,167,106,.2);
+    box-shadow: 0 0 65px rgba(227,60,86,.12),inset 0 0 35px rgba(227,60,86,.1);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .stat-card {
+    min-width: 0;
+    min-height: 145px;
+    position: relative;
+    overflow: hidden;
+    padding: 21px 19px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: linear-gradient(145deg,#191516,#100e0e);
+    box-shadow: 0 10px 30px rgba(0,0,0,.16);
+    transition: .3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(227,60,86,.4)!important;
+    box-shadow: 0 17px 38px rgba(0,0,0,.35);
+  }
+
+  .stat-card p {
+    margin: 0 0 13px;
+    color: #aaa0a1;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .7px;
+  }
+
+  .stat-card h3 {
+    margin: 0;
+    color: #fff;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: clamp(29px,3vw,39px);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .stat-card span {
+    display: block;
+    margin-top: 11px;
+    color: #777071;
+    font-size: 10px;
+  }
+
+  .stat-card.revenue h3 { color: var(--green)!important; }
+
+  .studio-panel {
+    padding: clamp(17px,2.3vw,25px);
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: linear-gradient(145deg,rgba(25,21,22,.97),rgba(13,12,12,.98));
+    box-shadow: 0 13px 35px rgba(0,0,0,.18);
+  }
+
+  .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .panel-heading .studio-overline { margin: 0 0 5px; }
+  .panel-heading h2 { font-size: 29px; }
+
+  .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 13px;
+  }
+
+  .quick-action {
+    min-height: 105px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 17px;
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 9px;
+    background: linear-gradient(120deg,#1c1517,#100e0e);
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    transition: .25s ease;
+  }
+
+  .quick-action:hover {
+    transform: translateY(-3px);
+    border-color: rgba(227,60,86,.4);
+    background: #201216;
+  }
+
+  .action-icon {
+    color: var(--red-light);
+    font-size: 23px;
+    margin-bottom: 10px;
+  }
+
+  .quick-action strong { font-size: 12px; }
+
+  .quick-action small {
+    margin-top: 5px;
+    color: #898081;
+    font-size: 10px;
+  }
+
+  .action-arrow {
+    position: absolute;
+    right: 17px;
+    top: 19px;
+    color: var(--gold);
+    font-size: 20px;
+  }
+
+  .product-toolbar {
+    display: flex;
+    gap: 11px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .product-toolbar input,
+  .product-toolbar select,
+  .order-search,
+  .set-input,
+  .form-field input,
+  .form-field select,
+  .form-field textarea,
+  #productImages {
+    min-height: 44px;
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #393033;
+    border-radius: 7px;
+    background: #0b0a0a;
+    color: #f5eeee;
+    font-size: 12px;
+    outline: none;
+    transition: .25s;
+  }
+
+  .product-toolbar input { flex: 1; min-width: 180px; }
+  .product-toolbar select { width: auto; min-width: 160px; }
+
+  .product-toolbar input:focus,
+  .product-toolbar select:focus,
+  .order-search:focus,
+  .set-input:focus,
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(227,60,86,.09);
+  }
+
+  input::placeholder,
+  textarea::placeholder { color: #70696a; }
+
+  select option { background: #151111; color: white; }
+
+  .set-input { margin: 0!important; }
+
+  .set-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #c9bfc0;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  #sellerSettings {
+    padding: clamp(17px,2.5vw,27px);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 11px;
+    background: linear-gradient(145deg,#191516,#0d0b0c);
   }
 
   .set-info-box {
-    padding: 13px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 9px;
+    background: #0b090a;
+    transition: .25s;
+  }
+
+  .set-info-box:hover { border-color: rgba(227,60,86,.3); }
+
+  .set-info-box small {
+    color: var(--gold);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .set-info-box div {
+    margin-top: 8px;
+    color: #eee5e5;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
   }
 
   .set-btn-save,
   .set-btn-cancel {
-    min-width: 100%;
+    min-height: 47px;
+    padding: 0 18px;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    transition: .25s;
   }
 
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
+  .set-btn-save {
+    background: linear-gradient(110deg,#8e1930,#bd304a);
+    border: 1px solid #c63b55;
+    color: white;
   }
 
-  .product-modal {
-    padding: 8px;
+  .set-btn-cancel {
+    background: #211c1d;
+    border: 1px solid #474041;
+    color: #eee;
   }
 
-  .product-modal-content {
-    max-height: 96vh;
-    padding: 17px;
+  .set-btn-save:hover,
+  .set-btn-cancel:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.15);
   }
 
-  .product-modal-header h2 {
-    font-size: 28px;
-  }
-
-  .product-form-actions {
-    flex-direction: column-reverse;
-  }
-
-  .product-form-actions button {
-    width: 100%;
-  }
-
-  .studio-footer {
-    font-size: 16px;
-  }
-}
-
-/* SMALL PHONES */
-
-@media(max-width:390px) {
-  .studio-main {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .studio-header {
+  .orders-toolbar {
+    display: flex;
     gap: 8px;
-  }
-
-  .studio-header h1 {
-    font-size: 30px;
-  }
-
-  .header-right {
-    max-width: 125px;
-  }
-
-  .status-indicator {
-    font-size: 7px;
-  }
-
-  .welcome-symbol {
-    width: 58px;
-    height: 58px;
-    font-size: 42px;
-  }
-
-  .welcome-banner h2 {
-    font-size: 34px;
-  }
-
-  .stat-card h3 {
-    font-size: 26px;
+    flex-wrap: wrap;
+    margin-bottom: 17px;
   }
 
   .orders-toolbar button {
-    padding: 9px 11px;
+    padding: 10px 17px;
+    border: 1px solid #393033;
+    border-radius: 30px;
+    background: #100e0e;
+    color: #aaa1a2;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: .25s;
+  }
+
+  .orders-toolbar button:hover {
+    border-color: rgba(227,60,86,.5);
+    color: white;
+  }
+
+  .orders-toolbar button.active {
+    background: linear-gradient(110deg,#84182f,#bd2944);
+    border-color: var(--red);
+    color: white;
+    box-shadow: 0 6px 20px rgba(167,25,50,.25);
+  }
+
+  .order-search { flex: 1; min-width: 200px; border-radius: 8px; }
+
+  .order-card {
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 14px;
+    border: 1px solid rgba(255,255,255,.085);
+    border-radius: 11px;
+    background: linear-gradient(145deg,#1b1617,#0d0b0c);
+    box-shadow: 0 9px 27px rgba(0,0,0,.2);
+    transition: .3s ease;
+  }
+
+  .order-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,transparent,#a71932,#e33c56,#c9a76a,transparent);
+  }
+
+  .order-card:hover {
+    border-color: rgba(227,60,86,.35);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 38px rgba(0,0,0,.35);
+  }
+
+  .order-card.new-order {
+    border-color: rgba(227,60,86,.5);
+    box-shadow: 0 0 25px rgba(227,60,86,.1);
+  }
+
+  .order-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 13px;
+    flex-wrap: wrap;
+  }
+
+  .order-card h3 {
+    margin: 0;
+    color: #fff;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .order-card small {
+    color: #8e8586;
+    font-size: 10px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+  }
+
+  .order-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border: 1px solid;
+    border-radius: 30px;
     font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .order-status.new {
+    background: rgba(227,60,86,.13);
+    border-color: rgba(227,60,86,.4);
+    color: #ff788b;
+    animation: pulseNew 2s infinite;
+  }
+
+  .order-status.confirmed {
+    background: rgba(255,193,7,.1);
+    border-color: rgba(255,193,7,.35);
+    color: #ffc857;
+  }
+
+  .order-status.done {
+    background: rgba(84,200,140,.1);
+    border-color: rgba(84,200,140,.35);
+    color: #54c88c;
+  }
+
+  .order-status.cancelled {
+    background: rgba(255,255,255,.055);
+    border-color: #484242;
+    color: #aaa;
+  }
+
+  @keyframes pulseNew {
+    50% { box-shadow: 0 0 0 5px rgba(227,60,86,0); }
+  }
+
+  .order-items { display: grid; gap: 9px; margin: 17px 0; }
+
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 8px;
+    background: #0b090a;
+  }
+
+  .order-item img {
+    width: 62px;
+    height: 62px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,.12);
+  }
+
+  .order-item b { color: #eee; font-size: 12px; }
+
+  .order-item span {
+    color: var(--red-light);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .order-total {
+    margin-top: 12px;
+    color: #ddd;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .order-total span {
+    color: var(--red-light);
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 25px;
   }
 
   .order-actions {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
   }
 
-  .order-actions .wa-action {
-    grid-column: auto;
+  .order-actions button,
+  .order-actions a {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 13px;
+    border: 1px solid #403638;
+    border-radius: 6px;
+    background: #191516;
+    color: white;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .7px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .22s;
   }
-}
 
-/* REDUCED MOTION ACCESSIBILITY */
-
-@media(prefers-reduced-motion:reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto!important;
-    animation-duration: .01ms!important;
-    animation-iteration-count: 1!important;
-    transition-duration: .01ms!important;
+  .order-actions button:hover,
+  .order-actions a:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.16);
   }
-}
+
+  .order-actions .wa-action { background: #126b42; border-color: #25a967; }
+  .order-actions .confirm-action { background: linear-gradient(110deg,#8e1930,#bd304a); border-color: var(--red); }
+  .order-actions .done-action { background: #0d5c36; border-color: #54c88c; }
+
+  .empty-state {
+    padding: 40px 18px;
+    border: 1px dashed rgba(255,255,255,.12);
+    border-radius: 10px;
+    text-align: center;
+    background: rgba(0,0,0,.12);
+  }
+
+  .empty-icon {
+    margin-bottom: 12px;
+    color: var(--red-light);
+    font-size: 35px;
+  }
+
+  .empty-state h3 {
+    margin: 0 0 7px;
+    color: #eee;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 24px;
+  }
+
+  .empty-state p {
+    margin: 0;
+    color: #898080;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .product-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
+
+  .product-modal[aria-hidden="false"] { display: flex; }
+
+  .product-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(9px);
+  }
+
+  .product-modal-content {
+    position: relative;
+    z-index: 1;
+    width: min(850px,100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: clamp(18px,3vw,30px);
+    border: 1px solid rgba(227,60,86,.3);
+    border-radius: 13px;
+    background: linear-gradient(145deg,#1b1517,#0b090a);
+    box-shadow: 0 30px 100px rgba(0,0,0,.7);
+    animation: modalEnter .3s ease;
+  }
+
+  @keyframes modalEnter {
+    from { opacity: 0; transform: translateY(14px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .product-modal-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .product-modal-header .studio-overline { margin: 0 0 6px; }
+
+  .product-modal-header h2 {
+    margin: 0;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 34px;
+    font-weight: 500;
+  }
+
+  .product-modal-header h2 span { color: var(--red-light); }
+
+  .product-modal-header p:last-child {
+    color: #93898a;
+    font-size: 11px;
+  }
+
+  .product-modal-close {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border: 1px solid #49343a;
+    border-radius: 50%;
+    background: #1a1114;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: .2s;
+  }
+
+  .product-modal-close:hover {
+    background: var(--red-dark);
+    transform: rotate(90deg);
+  }
+
+  .form-section {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .form-section h3 {
+    margin: 0 0 17px;
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+  }
+
+  .form-section > label,
+  .form-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #d6cbcc;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .form-section > small {
+    display: block;
+    margin-top: 7px;
+    color: #817879;
+    font-size: 10px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .form-field { min-width: 0; margin-bottom: 14px; }
+
+  .form-field textarea { min-height: 110px; resize: vertical; }
+
+  .form-field input[type="file"],
+  #productImages { padding: 10px; }
+
+  .image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .image-preview img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid rgba(227,60,86,.35);
+  }
+
+  .product-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+  }
+
+  .secondary-button {
+    min-height: 43px;
+    padding: 0 18px;
+    border: 1px solid #494041;
+    border-radius: 7px;
+    background: #211b1c;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  #productFormMessage {
+    margin-top: 12px;
+    color: var(--red-light);
+    font-size: 12px;
+  }
+
+  /* PREMIUM NEW ORDER NOTIFICATION */
+
+  #newOrderToast {
+    display: none;
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 99999;
+    width: min(360px, calc(100vw - 30px));
+    padding: 17px 20px;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(255, 113, 133, .45);
+    border-left: 4px solid #ff7185;
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at top right, rgba(227,60,86,.24), transparent 55%),
+      linear-gradient(135deg, #211014, #0d090a);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    box-shadow:
+      0 18px 55px rgba(0,0,0,.65),
+      0 0 25px rgba(227,60,86,.15);
+    animation: toastIn .4s cubic-bezier(.2,.8,.2,1);
+  }
+
+  #newOrderToast::before {
+    content: "🔔";
+    font-size: 21px;
+  }
+
+  #toastText { line-height: 1.6; }
+
+  @keyframes toastIn {
+    from {
+      opacity: 0;
+      transform: translateX(35px) scale(.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @media(max-width:760px) {
+    #newOrderToast {
+      top: 12px;
+      right: 12px;
+      width: calc(100vw - 24px);
+    }
+  }
+
+  .new-dot {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    background: var(--red-light);
+    box-shadow: 0 0 10px var(--red);
+    animation: statusGlow 1.5s infinite;
+  }
+
+  .studio-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 23px 0 8px;
+    margin-top: 25px;
+    border-top: 1px solid var(--border);
+    color: #d5caca;
+    font-family: 'Cormorant Garamond',serif;
+    font-size: 19px;
+    letter-spacing: 2px;
+  }
+
+  .studio-footer span { color: var(--red-light); }
+
+  .studio-footer small {
+    width: 100%;
+    margin-top: 3px;
+    color: #71696a;
+    font-family: 'DM Sans',sans-serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+
+  @media(max-width:1100px) {
+    .studio-sidebar { width: 225px; min-width: 225px; }
+    .studio-main { padding-left: 23px; padding-right: 23px; }
+    .stats-grid { grid-template-columns: repeat(2,minmax(0,1fr))!important; }
+  }
+
+  @media(max-width:760px) {
+    .studio { display: block; }
+
+    .studio-sidebar {
+      position: relative;
+      top: auto;
+      width: 100%;
+      min-width: 0;
+      height: auto;
+      padding: 13px 14px;
+      border-right: 0;
+      border-bottom: 1px solid rgba(227,60,86,.2);
+    }
+
+    .studio-brand { padding: 0 3px 12px; }
+    .brand-mark { width: 36px; height: 36px; font-size: 24px; }
+    .brand-name { font-size: 23px; }
+    .sidebar-label { display: none; }
+
+    .studio-nav {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 2px 0 5px;
+      scrollbar-width: none;
+    }
+
+    .studio-nav::-webkit-scrollbar { display: none; }
+
+    .nav-item {
+      width: auto;
+      min-width: max-content;
+      min-height: 40px;
+      justify-content: center;
+      gap: 7px;
+      padding: 0 12px;
+      font-size: 10px;
+    }
+
+    .nav-item:hover { transform: none; }
+    .nav-item.active { box-shadow: inset 0 -2px var(--red); }
+    .sidebar-bottom { display: none; }
+
+    .studio-main { padding: 19px 14px 18px; }
+
+    .studio-header {
+      align-items: flex-start;
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+
+    .studio-header h1 { font-size: 35px; }
+
+    .header-right {
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .header-right button {
+      padding: 9px 10px!important;
+      font-size: 9px!important;
+    }
+
+    .status-indicator { font-size: 8px; }
+    .header-avatar { display: none; }
+
+    .welcome-banner {
+      min-height: 190px;
+      padding: 25px 20px;
+    }
+
+    .welcome-banner h2 { font-size: 39px; }
+
+    .welcome-banner p:not(.studio-overline) {
+      max-width: 230px;
+      font-size: 10px;
+    }
+
+    .welcome-symbol {
+      width: 75px;
+      height: 75px;
+      margin-right: 5px;
+      font-size: 55px;
+      outline-offset: 5px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2,minmax(0,1fr))!important;
+      gap: 9px;
+    }
+
+    .stat-card { min-height: 125px; padding: 15px 12px; }
+    .stat-card p { font-size: 9px; }
+    .stat-card h3 { font-size: 30px; }
+    .stat-card span { font-size: 9px; line-height: 1.5; }
+
+    .section-heading h2 { font-size: 30px; }
+    .section-heading { align-items: flex-start; }
+    .quick-actions { grid-template-columns: 1fr; }
+    .studio-panel { padding: 15px; }
+    .panel-heading h2 { font-size: 25px; }
+    .order-card { padding: 15px; }
+    .order-card h3 { font-size: 19px; }
+
+    .order-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .order-actions button,
+    .order-actions a {
+      width: 100%;
+      min-width: 0;
+      padding: 9px 6px;
+      font-size: 8px;
+      text-align: center;
+    }
+
+    .order-actions .wa-action { grid-column: 1/-1; }
+
+    #settingsViewGrid,
+    #settingsEditGrid { grid-template-columns: 1fr!important; }
+
+    #settingsViewGrid > *,
+    #settingsEditGrid > * { grid-column: auto!important; }
+
+    .set-info-box { padding: 13px; }
+
+    .set-btn-save,
+    .set-btn-cancel { min-width: 100%; }
+
+    .form-grid { grid-template-columns: 1fr; gap: 0; }
+
+    .product-modal { padding: 8px; }
+
+    .product-modal-content {
+      max-height: 96vh;
+      padding: 17px;
+    }
+
+    .product-modal-header h2 { font-size: 28px; }
+    .product-form-actions { flex-direction: column-reverse; }
+    .product-form-actions button { width: 100%; }
+    .studio-footer { font-size: 16px; }
+  }
+
+  @media(max-width:390px) {
+    .studio-main { padding-left: 10px; padding-right: 10px; }
+    .studio-header { gap: 8px; }
+    .studio-header h1 { font-size: 30px; }
+    .header-right { max-width: 125px; }
+    .status-indicator { font-size: 7px; }
+
+    .welcome-symbol {
+      width: 58px;
+      height: 58px;
+      font-size: 42px;
+    }
+
+    .welcome-banner h2 { font-size: 34px; }
+    .stat-card h3 { font-size: 26px; }
+
+    .orders-toolbar button {
+      padding: 9px 11px;
+      font-size: 9px;
+    }
+
+    .order-actions { grid-template-columns: 1fr; }
+    .order-actions .wa-action { grid-column: auto; }
+  }
+
+  @media(prefers-reduced-motion:reduce) {
+    *, *::before, *::after {
+      scroll-behavior: auto!important;
+      animation-duration: .01ms!important;
+      animation-iteration-count: 1!important;
+      transition-duration: .01ms!important;
+    }
+  }
   </style>
 </head>
+
 <body>
-  <div id="newOrderToast">🔔 <span id="toastText">New Order Aaya Hai!</span></div>
+
+  <!-- Notification starts hidden; bell is supplied by CSS -->
+  <div id="newOrderToast">
+    <span id="toastText">New Order Aaya Hai!</span>
+  </div>
+
   <div class="studio" id="sellerStudio">
+
     <aside class="studio-sidebar">
-      <a href="index.html" class="studio-brand"><span class="brand-mark">S</span><span class="brand-name">SHERIX</span></a>
+      <a href="index.html" class="studio-brand">
+        <span class="brand-mark">S</span>
+        <span class="brand-name">SHERIX</span>
+      </a>
+
       <p class="sidebar-label">SELLER STUDIO</p>
+
       <nav class="studio-nav">
         <button class="nav-item active" data-section="overview"><span>◈</span> Overview</button>
         <button class="nav-item" data-section="products"><span>⌚</span> Products</button>
@@ -1568,64 +1360,179 @@ select option {
         <button class="nav-item" data-section="inventory"><span>▦</span> Inventory</button>
         <button class="nav-item" data-section="settings"><span>⚙</span> Settings</button>
       </nav>
+
       <div class="sidebar-bottom">
-        <div class="seller-mini-profile"><div class="seller-avatar">F</div><div><strong>Farman Shinwari</strong><small>Store Owner</small></div></div>
+        <div class="seller-mini-profile">
+          <div class="seller-avatar">F</div>
+          <div>
+            <strong>Farman Shinwari</strong>
+            <small>Store Owner</small>
+          </div>
+        </div>
         <button id="logoutButton" class="logout-button"><span>↪</span> Logout</button>
       </div>
     </aside>
+
     <main class="studio-main">
+
       <header class="studio-header">
-        <div><p class="studio-overline">SHERIX MANAGEMENT</p><h1>Seller <span>Studio</span></h1></div>
+        <div>
+          <p class="studio-overline">SHERIX MANAGEMENT</p>
+          <h1>Seller <span>Studio</span></h1>
+        </div>
+
         <div class="header-right">
           <button onclick="loadOrders()" style="background:#111;border:1px solid #333;color:#fff;padding:10px 14px;border-radius:20px;cursor:pointer;font-size:11px;">↻ REFRESH</button>
           <div class="status-indicator"><span class="status-dot"></span>STORE ACTIVE</div>
           <div class="header-avatar">F</div>
         </div>
       </header>
+
       <section class="studio-section active" id="overview">
+
         <div class="welcome-banner">
-          <div><p class="studio-overline">YOUR BUSINESS. YOUR CONTROL.</p><h2>Welcome back,<br><span>Farman.</span></h2><p>Manage your luxury collection and keep your store running.</p></div>
+          <div>
+            <p class="studio-overline">YOUR BUSINESS. YOUR CONTROL.</p>
+            <h2>Welcome back,<br><span>Farman.</span></h2>
+            <p>Manage your luxury collection and keep your store running.</p>
+          </div>
           <div class="welcome-symbol">S</div>
         </div>
+
         <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);">
-          <div class="stat-card"><p>Total Products</p><h3 id="totalProducts">0</h3><span>Products in your collection</span></div>
-          <div class="stat-card"><p>Active Products</p><h3 id="activeProducts">0</h3><span>Published on SHERIX</span></div>
-          <div class="stat-card"><p>Total Orders</p><h3 id="totalOrders">0</h3><span>Customer orders received</span></div>
-          <div class="stat-card revenue"><p>💰 Total Revenue</p><h3 id="totalRevenue">Rs 0</h3><span>From confirmed + done orders</span></div>
-        </div>
-        <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-top:-6px;">
-          <div class="stat-card"><p>🔔 New Orders</p><h3 id="pendingOrders" style="color:#ff6b81;">0</h3><span>Awaiting confirmation</span></div>
-          <div class="stat-card"><p>✅ Confirmed</p><h3 id="confirmedOrders" style="color:#ffc107;">0</h3><span>Ready to ship</span></div>
-          <div class="stat-card"><p>🎉 Completed</p><h3 id="doneOrders" style="color:#54c88c;">0</h3><span>Successfully delivered</span></div>
-        </div>
-        <div class="studio-panel">
-          <div class="panel-heading"><div><p class="studio-overline">QUICK ACCESS</p><h2>Manage Your Store</h2></div></div>
-          <div class="quick-actions">
-            <button class="quick-action" data-section="products"><span class="action-icon">⌚</span><strong>Manage Products</strong><small>Add, edit and publish watches</small><span class="action-arrow">→</span></button>
-            <button class="quick-action" data-section="orders"><span class="action-icon">▤</span><strong>Manage Orders</strong><small>Review and process customer orders</small><span class="action-arrow">→</span></button>
+          <div class="stat-card">
+            <p>Total Products</p>
+            <h3 id="totalProducts">0</h3>
+            <span>Products in your collection</span>
+          </div>
+          <div class="stat-card">
+            <p>Active Products</p>
+            <h3 id="activeProducts">0</h3>
+            <span>Published on SHERIX</span>
+          </div>
+          <div class="stat-card">
+            <p>Total Orders</p>
+            <h3 id="totalOrders">0</h3>
+            <span>Customer orders received</span>
+          </div>
+          <div class="stat-card revenue">
+            <p>💰 Total Revenue</p>
+            <h3 id="totalRevenue">Rs 0</h3>
+            <span>From confirmed + done orders</span>
           </div>
         </div>
-        <div class="studio-panel">
-          <div class="panel-heading"><div><p class="studio-overline">CUSTOMER ACTIVITY</p><h2>Recent Orders</h2></div><button class="text-button" data-section="orders">View All →</button></div>
-          <div id="recentOrders"><div class="empty-state"><div class="empty-icon">▤</div><h3>No orders yet</h3><p>Your customer orders will appear here.</p></div></div>
+
+        <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-top:-6px;">
+          <div class="stat-card">
+            <p>🔔 New Orders</p>
+            <h3 id="pendingOrders" style="color:#ff6b81;">0</h3>
+            <span>Awaiting confirmation</span>
+          </div>
+          <div class="stat-card">
+            <p>✅ Confirmed</p>
+            <h3 id="confirmedOrders" style="color:#ffc107;">0</h3>
+            <span>Ready to ship</span>
+          </div>
+          <div class="stat-card">
+            <p>🎉 Completed</p>
+            <h3 id="doneOrders" style="color:#54c88c;">0</h3>
+            <span>Successfully delivered</span>
+          </div>
         </div>
+
+        <div class="studio-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="studio-overline">QUICK ACCESS</p>
+              <h2>Manage Your Store</h2>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <button class="quick-action" data-section="products">
+              <span class="action-icon">⌚</span>
+              <strong>Manage Products</strong>
+              <small>Add, edit and publish watches</small>
+              <span class="action-arrow">→</span>
+            </button>
+
+            <button class="quick-action" data-section="orders">
+              <span class="action-icon">▤</span>
+              <strong>Manage Orders</strong>
+              <small>Review and process customer orders</small>
+              <span class="action-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="studio-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="studio-overline">CUSTOMER ACTIVITY</p>
+              <h2>Recent Orders</h2>
+            </div>
+            <button class="text-button" data-section="orders">View All →</button>
+          </div>
+
+          <div id="recentOrders">
+            <div class="empty-state">
+              <div class="empty-icon">▤</div>
+              <h3>No orders yet</h3>
+              <p>Your customer orders will appear here.</p>
+            </div>
+          </div>
+        </div>
+
       </section>
+
       <section class="studio-section" id="products">
-        <div class="section-heading"><div><p class="studio-overline">YOUR COLLECTION</p><h2>Products</h2></div><button id="addProductButton" class="primary-button">+ ADD NEW WATCH</button></div>
+        <div class="section-heading">
+          <div>
+            <p class="studio-overline">YOUR COLLECTION</p>
+            <h2>Products</h2>
+          </div>
+          <button id="addProductButton" class="primary-button">+ ADD NEW WATCH</button>
+        </div>
+
         <div class="studio-panel">
           <div class="product-toolbar">
             <input type="search" id="productSearch" placeholder="Search watches...">
-            <select id="productFilter"><option value="all">All Products</option><option value="active">Active</option><option value="hidden">Hidden</option><option value="archived">Archived</option></select>
+            <select id="productFilter">
+              <option value="all">All Products</option>
+              <option value="active">Active</option>
+              <option value="hidden">Hidden</option>
+              <option value="archived">Archived</option>
+            </select>
           </div>
-          <div id="productsContainer"><div class="empty-state"><div class="empty-icon">⌚</div><h3>Your collection starts here</h3><p>Add your first luxury watch to SHERIX.</p></div></div>
+
+          <div id="productsContainer">
+            <div class="empty-state">
+              <div class="empty-icon">⌚</div>
+              <h3>Your collection starts here</h3>
+              <p>Add your first luxury watch to SHERIX.</p>
+            </div>
+          </div>
         </div>
       </section>
+
       <section class="studio-section" id="orders">
-        <div class="section-heading"><div><p class="studio-overline">CUSTOMER PURCHASES</p><h2>Orders <span id="ordersLive" style="font-size:12px;color:#54c88c;">● LIVE</span></h2></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="primary-button" onclick="exportOrdersCSV()">📥 EXPORT CSV</button><button class="primary-button" onclick="loadOrders()">↻ REFRESH</button></div>
+        <div class="section-heading">
+          <div>
+            <p class="studio-overline">CUSTOMER PURCHASES</p>
+            <h2>Orders <span id="ordersLive" style="font-size:12px;color:#54c88c;">● LIVE</span></h2>
+          </div>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="primary-button" onclick="exportOrdersCSV()">📥 EXPORT CSV</button>
+            <button class="primary-button" onclick="loadOrders()">↻ REFRESH</button>
+          </div>
         </div>
+
         <div class="studio-panel">
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;"><input id="orderSearchInput" class="order-search" placeholder="🔍 Search - Name, Phone, Order ID..." oninput="orderSearch=this.value.toLowerCase();renderOrders();"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+            <input id="orderSearchInput" class="order-search" placeholder="🔍 Search - Name, Phone, Order ID..." oninput="orderSearch=this.value.toLowerCase();renderOrders();">
+          </div>
+
           <div class="orders-toolbar">
             <button class="order-filter-btn active" data-filter="all" onclick="setOrderFilter('all',this)">ALL</button>
             <button class="order-filter-btn" data-filter="new" onclick="setOrderFilter('new',this)">NEW</button>
@@ -1633,157 +1540,747 @@ select option {
             <button class="order-filter-btn" data-filter="done" onclick="setOrderFilter('done',this)">DONE</button>
             <button class="order-filter-btn" data-filter="cancelled" onclick="setOrderFilter('cancelled',this)">CANCELLED</button>
           </div>
-          <div id="ordersContainer"><div class="empty-state"><div class="empty-icon">▤</div><h3>Loading orders...</h3><p>Please wait...</p></div></div>
+
+          <div id="ordersContainer">
+            <div class="empty-state">
+              <div class="empty-icon">▤</div>
+              <h3>Loading orders...</h3>
+              <p>Please wait...</p>
+            </div>
+          </div>
         </div>
       </section>
+
       <section class="studio-section" id="inventory">
-        <div class="section-heading"><div><p class="studio-overline">STOCK CONTROL</p><h2>Inventory</h2></div></div>
-        <div class="studio-panel"><div id="inventoryContainer"><div class="empty-state"><div class="empty-icon">▦</div><h3>Inventory Management</h3><p>Stock levels and availability will appear here.</p></div></div></div>
+        <div class="section-heading">
+          <div>
+            <p class="studio-overline">STOCK CONTROL</p>
+            <h2>Inventory</h2>
+          </div>
+        </div>
+        <div class="studio-panel">
+          <div id="inventoryContainer">
+            <div class="empty-state">
+              <div class="empty-icon">▦</div>
+              <h3>Inventory Management</h3>
+              <p>Stock levels and availability will appear here.</p>
+            </div>
+          </div>
+        </div>
       </section>
+
       <section class="studio-section" id="settings">
-        <div class="section-heading"><div><p class="studio-overline">ACCOUNT & STORE</p><h2>Settings</h2></div></div>
-        <div class="studio-panel"><div id="sellerSettings">
-          <div id="settingsView">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;">
-              <div><h3 id="viewStoreName" style="font-family:'Cormorant Garamond',serif;font-size:28px;margin:0;">SHERIX</h3><p id="viewOwnerName" style="color:#e33c56;font-size:16px;font-weight:700;margin:6px 0 0;">Farman Shinwari</p><p style="color:#888;font-size:12px;margin:4px 0;">Store Owner • SHERIX Seller Studio</p></div>
-              <button onclick="openSettingsEdit()" style="background:linear-gradient(110deg,#8e1930,#bd304a);border:1px solid #c63b55;color:#fff;padding:12px 22px;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:8px;">✏️ EDIT PROFILE</button>
-            </div>
-            <div id="settingsViewGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;">
-              <div class="set-info-box"><small>📱 WHATSAPP</small><div id="viewWhatsApp">03075689144</div></div>
-              <div class="set-info-box"><small>✉️ EMAIL</small><div id="viewEmail">-</div></div>
-              <div class="set-info-box" style="grid-column:1/-1;"><small>📍 STORE ADDRESS</small><div id="viewAddress">-</div></div>
-            </div>
+        <div class="section-heading">
+          <div>
+            <p class="studio-overline">ACCOUNT & STORE</p>
+            <h2>Settings</h2>
           </div>
-          <div id="settingsEdit" style="display:none;">
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 18px;">✏️ Edit Profile</h3>
-            <div id="settingsEditGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-              <div><label class="set-label">STORE NAME *</label><input id="setStoreName" class="set-input" placeholder="SHERIX"></div>
-              <div><label class="set-label">YOUR NAME *</label><input id="setOwnerName" class="set-input" placeholder="Farman Shinwari"></div>
-              <div><label class="set-label">WHATSAPP NUMBER *</label><input id="setWhatsApp" class="set-input" placeholder="03xx-xxxxxxx"></div>
-              <div><label class="set-label">EMAIL</label><input id="setEmail" class="set-input" placeholder="Email (optional)"></div>
-              <div style="grid-column:1/-1;"><label class="set-label">STORE ADDRESS</label><input id="setAddress" class="set-input" placeholder="Shop Address, City"></div>
+        </div>
+
+        <div class="studio-panel">
+          <div id="sellerSettings">
+
+            <div id="settingsView">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:15px;flex-wrap:wrap;">
+                <div>
+                  <h3 id="viewStoreName" style="font-family:'Cormorant Garamond',serif;font-size:28px;margin:0;">SHERIX</h3>
+                  <p id="viewOwnerName" style="color:#e33c56;font-size:16px;font-weight:700;margin:6px 0 0;">Farman Shinwari</p>
+                  <p style="color:#888;font-size:12px;margin:4px 0;">Store Owner • SHERIX Seller Studio</p>
+                </div>
+                <button onclick="openSettingsEdit()" style="background:linear-gradient(110deg,#8e1930,#bd304a);border:1px solid #c63b55;color:#fff;padding:12px 22px;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:8px;">✏️ EDIT PROFILE</button>
+              </div>
+
+              <div id="settingsViewGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;">
+                <div class="set-info-box"><small>📱 WHATSAPP</small><div id="viewWhatsApp">03075689144</div></div>
+                <div class="set-info-box"><small>✉️ EMAIL</small><div id="viewEmail">-</div></div>
+                <div class="set-info-box" style="grid-column:1/-1;"><small>📍 STORE ADDRESS</small><div id="viewAddress">-</div></div>
+              </div>
             </div>
-            <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;"><button onclick="saveSellerSettings()" class="set-btn-save">💾 SAVE CHANGES</button><button onclick="closeSettingsEdit()" class="set-btn-cancel">CANCEL</button></div>
-            <p id="settingsMsg" style="text-align:center;color:#54c88c;font-size:12px;margin-top:12px;min-height:18px;"></p>
+
+            <div id="settingsEdit" style="display:none;">
+              <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin:0 0 18px;">✏️ Edit Profile</h3>
+
+              <div id="settingsEditGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                <div><label class="set-label">STORE NAME *</label><input id="setStoreName" class="set-input" placeholder="SHERIX"></div>
+                <div><label class="set-label">YOUR NAME *</label><input id="setOwnerName" class="set-input" placeholder="Farman Shinwari"></div>
+                <div><label class="set-label">WHATSAPP NUMBER *</label><input id="setWhatsApp" class="set-input" placeholder="03xx-xxxxxxx"></div>
+                <div><label class="set-label">EMAIL</label><input id="setEmail" class="set-input" placeholder="Email (optional)"></div>
+                <div style="grid-column:1/-1;"><label class="set-label">STORE ADDRESS</label><input id="setAddress" class="set-input" placeholder="Shop Address, City"></div>
+              </div>
+
+              <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;">
+                <button onclick="saveSellerSettings()" class="set-btn-save">💾 SAVE CHANGES</button>
+                <button onclick="closeSettingsEdit()" class="set-btn-cancel">CANCEL</button>
+              </div>
+
+              <p id="settingsMsg" style="text-align:center;color:#54c88c;font-size:12px;margin-top:12px;min-height:18px;"></p>
+            </div>
+
           </div>
-        </div></div>
+        </div>
       </section>
-      <footer class="studio-footer">SHERIX <span>— RULE YOUR TIME.</span><small>POWERED BY ALI TEC CORPORATION</small></footer>
+
+      <footer class="studio-footer">
+        SHERIX <span>— RULE YOUR TIME.</span>
+        <small>POWERED BY ALI TEC CORPORATION</small>
+      </footer>
+
       <div class="product-modal" id="productModal" aria-hidden="true">
         <div class="product-modal-backdrop" data-close-product-modal></div>
+
         <div class="product-modal-content" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
-          <div class="product-modal-header"><div><p class="studio-overline">SHERIX SELLER STUDIO</p><h2 id="productModalTitle">Add New <span>Watch</span></h2><p>Introduce a new timepiece to your collection.</p></div><button type="button" class="product-modal-close" data-close-product-modal aria-label="Close">×</button></div>
+          <div class="product-modal-header">
+            <div>
+              <p class="studio-overline">SHERIX SELLER STUDIO</p>
+              <h2 id="productModalTitle">Add New <span>Watch</span></h2>
+              <p>Introduce a new timepiece to your collection.</p>
+            </div>
+            <button type="button" class="product-modal-close" data-close-product-modal aria-label="Close">×</button>
+          </div>
+
           <form id="productForm">
-            <div class="form-section"><h3>01 — Product Images</h3><label for="productImages">Watch Images *</label><input type="file" id="productImages" name="images" accept="image/jpeg,image/png,image/webp" multiple required><small>JPG, PNG or WEBP. Maximum 5 MB per image.</small><div id="imagePreview" class="image-preview"></div></div>
-            <div class="form-section"><h3>02 — Product Information</h3><div class="form-grid">
-              <div class="form-field"><label for="productName">Product Name *</label><input id="productName" name="name" type="text" maxlength="150" required placeholder="e.g. Classic Chronograph"></div>
-              <div class="form-field"><label for="productBrand">Brand *</label><input id="productBrand" name="brand" type="text" maxlength="100" required placeholder="Watch brand"></div>
-              <div class="form-field"><label for="productModel">Model *</label><input id="productModel" name="model" type="text" maxlength="100" required placeholder="Model number"></div>
-              <div class="form-field"><label for="productCategory">Category *</label><select id="productCategory" name="category" required><option value="">Select category</option><option value="men">Men's Watches</option><option value="women">Women's Watches</option><option value="unisex">Unisex Watches</option><option value="smart">Smart Watches</option><option value="luxury">Luxury Watches</option></select></div>
-            </div><div class="form-field"><label for="productDescription">Description *</label><textarea id="productDescription" name="description" rows="5" maxlength="3000" required placeholder="Describe the watch, its design and key features..."></textarea></div></div>
-            <div class="form-section"><h3>03 — Pricing & Delivery</h3><div class="form-grid">
-              <div class="form-field"><label for="productPrice">Selling Price (PKR) *</label><input id="productPrice" name="price" type="number" min="1" step="1" required placeholder="e.g. 12500"></div>
-              <div class="form-field"><label for="productOriginalPrice">Original Price (PKR)</label><input id="productOriginalPrice" name="originalPrice" type="number" min="1" step="1" placeholder="Optional"></div>
-              <div class="form-field"><label for="productDelivery">Delivery Charges (PKR) *</label><input id="productDelivery" name="deliveryCharge" type="number" min="0" step="1" required placeholder="e.g. 250"></div>
-              <div class="form-field"><label for="productStock">Stock Quantity *</label><input id="productStock" name="stock" type="number" min="0" step="1" required placeholder="e.g. 10"></div>
-              <div class="form-field"><label for="productSKU">SKU / Product Code *</label><input id="productSKU" name="sku" type="text" maxlength="60" required placeholder="e.g. SHX-W-001"></div>
-            </div></div>
-            <div class="form-section"><h3>04 — Watch Specifications</h3><div class="form-grid">
-              <div class="form-field"><label for="productMovement">Movement</label><input id="productMovement" name="movement" type="text" maxlength="100" placeholder="Quartz / Automatic"></div>
-              <div class="form-field"><label for="productStrap">Strap Material</label><input id="productStrap" name="strapMaterial" type="text" maxlength="100" placeholder="Leather / Stainless Steel"></div>
-              <div class="form-field"><label for="productCase">Case Material</label><input id="productCase" name="caseMaterial" type="text" maxlength="100" placeholder="Stainless Steel"></div>
-              <div class="form-field"><label for="productDial">Dial Color</label><input id="productDial" name="dialColor" type="text" maxlength="60" placeholder="Black / Silver"></div>
-              <div class="form-field"><label for="productWater">Water Resistance</label><input id="productWater" name="waterResistance" type="text" maxlength="60" placeholder="e.g. 30 meters"></div>
-              <div class="form-field"><label for="productWarranty">Warranty</label><input id="productWarranty" name="warranty" type="text" maxlength="100" placeholder="e.g. 1 Year"></div>
-            </div></div>
-            <div class="form-section"><h3>05 — Publishing</h3><div class="form-field"><label for="productStatus">Product Status *</label><select id="productStatus" name="status" required><option value="draft">Save as Draft</option><option value="active">Publish Product</option></select></div></div>
+
+            <div class="form-section">
+              <h3>01 — Product Images</h3>
+              <label for="productImages">Watch Images *</label>
+              <input type="file" id="productImages" name="images" accept="image/jpeg,image/png,image/webp" multiple required>
+              <small>JPG, PNG or WEBP. Maximum 5 MB per image.</small>
+              <div id="imagePreview" class="image-preview"></div>
+            </div>
+
+            <div class="form-section">
+              <h3>02 — Product Information</h3>
+              <div class="form-grid">
+                <div class="form-field"><label for="productName">Product Name *</label><input id="productName" name="name" type="text" maxlength="150" required placeholder="e.g. Classic Chronograph"></div>
+                <div class="form-field"><label for="productBrand">Brand *</label><input id="productBrand" name="brand" type="text" maxlength="100" required placeholder="Watch brand"></div>
+                <div class="form-field"><label for="productModel">Model *</label><input id="productModel" name="model" type="text" maxlength="100" required placeholder="Model number"></div>
+                <div class="form-field">
+                  <label for="productCategory">Category *</label>
+                  <select id="productCategory" name="category" required>
+                    <option value="">Select category</option>
+                    <option value="men">Men's Watches</option>
+                    <option value="women">Women's Watches</option>
+                    <option value="unisex">Unisex Watches</option>
+                    <option value="smart">Smart Watches</option>
+                    <option value="luxury">Luxury Watches</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="productDescription">Description *</label>
+                <textarea id="productDescription" name="description" rows="5" maxlength="3000" required placeholder="Describe the watch, its design and key features..."></textarea>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>03 — Pricing & Delivery</h3>
+              <div class="form-grid">
+                <div class="form-field"><label for="productPrice">Selling Price (PKR) *</label><input id="productPrice" name="price" type="number" min="1" step="1" required placeholder="e.g. 12500"></div>
+                <div class="form-field"><label for="productOriginalPrice">Original Price (PKR)</label><input id="productOriginalPrice" name="originalPrice" type="number" min="1" step="1" placeholder="Optional"></div>
+                <div class="form-field"><label for="productDelivery">Delivery Charges (PKR) *</label><input id="productDelivery" name="deliveryCharge" type="number" min="0" step="1" required placeholder="e.g. 250"></div>
+                <div class="form-field"><label for="productStock">Stock Quantity *</label><input id="productStock" name="stock" type="number" min="0" step="1" required placeholder="e.g. 10"></div>
+                <div class="form-field"><label for="productSKU">SKU / Product Code *</label><input id="productSKU" name="sku" type="text" maxlength="60" required placeholder="e.g. SHX-W-001"></div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>04 — Watch Specifications</h3>
+              <div class="form-grid">
+                <div class="form-field"><label for="productMovement">Movement</label><input id="productMovement" name="movement" type="text" maxlength="100" placeholder="Quartz / Automatic"></div>
+                <div class="form-field"><label for="productStrap">Strap Material</label><input id="productStrap" name="strapMaterial" type="text" maxlength="100" placeholder="Leather / Stainless Steel"></div>
+                <div class="form-field"><label for="productCase">Case Material</label><input id="productCase" name="caseMaterial" type="text" maxlength="100" placeholder="Stainless Steel"></div>
+                <div class="form-field"><label for="productDial">Dial Color</label><input id="productDial" name="dialColor" type="text" maxlength="60" placeholder="Black / Silver"></div>
+                <div class="form-field"><label for="productWater">Water Resistance</label><input id="productWater" name="waterResistance" type="text" maxlength="60" placeholder="e.g. 30 meters"></div>
+                <div class="form-field"><label for="productWarranty">Warranty</label><input id="productWarranty" name="warranty" type="text" maxlength="100" placeholder="e.g. 1 Year"></div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>05 — Publishing</h3>
+              <div class="form-field">
+                <label for="productStatus">Product Status *</label>
+                <select id="productStatus" name="status" required>
+                  <option value="draft">Save as Draft</option>
+                  <option value="active">Publish Product</option>
+                </select>
+              </div>
+            </div>
+
             <div id="productFormMessage" role="status" aria-live="polite"></div>
-            <div class="product-form-actions"><button type="button" class="secondary-button" data-close-product-modal>Cancel</button><button type="submit" class="primary-button" id="saveProductButton">SAVE PRODUCT</button></div>
+
+            <div class="product-form-actions">
+              <button type="button" class="secondary-button" data-close-product-modal>Cancel</button>
+              <button type="submit" class="primary-button" id="saveProductButton">SAVE PRODUCT</button>
+            </div>
+
           </form>
         </div>
       </div>
+
     </main>
   </div>
   <script src="js/script.js"></script>
+
   <script>
-    // FIXED: No PIN. Auth is handled by js/script.js via /auth/me -> redirects to login.html if not logged in
-    // FIXED: Use API_BASE_URL from script.js, not hardcoded localhost
-    const ORDERS_API = (typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : "https://sherix-backend.onrender.com/api");
-    let allOrders = []; let orderFilter = "all"; let orderSearch = ""; let lastOrderCount = 0; let firstLoad = true;
-    // Backend fields: full_name / mobile_number / full_address / grand_total
-    // Old fields: customer_name / customer_phone / customer_address / total_amount - dono support karte hain
+    // Auth is handled by js/script.js via /auth/me
+    const ORDERS_API = (
+      typeof API_BASE_URL !== 'undefined'
+        ? API_BASE_URL
+        : "https://sherix-backend.onrender.com/api"
+    );
+
+    let allOrders = [];
+    let orderFilter = "all";
+    let orderSearch = "";
+    let firstLoad = true;
+
+    // Unique order IDs already seen by this dashboard
+    let knownOrderIds = new Set();
+
+    // Prevent overlapping toast timers
+    let toastTimer = null;
+
+    // Backend fields and legacy fields supported
     const oName = o => o.full_name || o.customer_name || "-";
     const oPhone = o => o.mobile_number || o.customer_phone || "";
     const oAddr = o => o.full_address || o.customer_address || "";
     const oEmail = o => o.email || o.customer_email || "";
     const oTotal = o => Number(o.grand_total ?? o.total_amount ?? o.total ?? 0);
-    function cleanPhone(p){ if(!p) return ""; let d = String(p).replace(/\D/g,""); if(d.startsWith("0")) d = "92" + d.slice(1); if(!d.startsWith("92") && d.length===10) d = "92" + d; return d; }
-    function formatDate(d){ try { return new Date(d).toLocaleString("en-PK", { dateStyle:"medium", timeStyle:"short" }); } catch(e){ return d || ""; } }
-    function setOrderFilter(f, btn){ orderFilter = f; document.querySelectorAll(".order-filter-btn").forEach(b=>b.classList.remove("active")); if(btn) btn.classList.add("active"); renderOrders(); }
-    function playNewOrderSound(){ try{ let ctx = new (window.AudioContext||window.webkitAudioContext)(); [0,0.15,0.3].forEach((t,i)=>{ let o=ctx.createOscillator(), g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value = i===2?880:660; g.gain.value=0.15; o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+0.12); }); }catch(e){} }
-    function showNewOrderToast(name, id){ let t=document.getElementById("newOrderToast"); document.getElementById("toastText").textContent = `New Order #${id} - ${name} !`; t.style.display="block"; setTimeout(()=>t.style.display="none", 6000); }
-    function copyOrderText(id){
-      let o = allOrders.find(x=>String(x.id)===String(id)); if(!o) return;
-      let items = o.items || []; if(typeof items==="string"){ try{items=JSON.parse(items)}catch(e){items=[]} }
-      let txt = `ORDER #${o.id}\nName: ${oName(o)}\nPhone: ${oPhone(o)}\nAddress: ${oAddr(o)}\nTotal: Rs ${oTotal(o).toLocaleString()}\nItems: ${items.map(i=>i.name||i.brand+" "+i.model).join(", ")}`;
-      navigator.clipboard.writeText(txt).then(()=>alert("✅ Order Copied!"));
+
+    function cleanPhone(p) {
+      if (!p) return "";
+
+      let d = String(p).replace(/\D/g, "");
+
+      if (d.startsWith("0")) d = "92" + d.slice(1);
+      if (!d.startsWith("92") && d.length === 10) d = "92" + d;
+
+      return d;
     }
-    function exportOrdersCSV(){
-      if(allOrders.length===0) return alert("No orders to export!");
-      let csv = "Order ID,Name,Phone,Address,Total,Status,Date\n";
-      allOrders.forEach(o=>{ csv += `${o.id},"${oName(o)}","${oPhone(o)}","${oAddr(o).replace(/"/g,'')}",${oTotal(o)},${o.status},"${o.created_at}"\n`; });
-      let a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download="sherix-orders.csv"; a.click();
-    }
-    async function loadOrders(){
+
+    function formatDate(d) {
       try {
-        const res = await fetch(`${ORDERS_API}/orders`, { credentials: "include" });
-        if(res.status===401){ window.location.replace("login.html"); return; }
-        const data = await res.json(); allOrders = data.orders || [];
-        if(!firstLoad && allOrders.length > lastOrderCount){
-          let newest = allOrders[0]; playNewOrderSound(); showNewOrderToast(oName(newest), newest.id);
-          document.getElementById("navNewDot").style.display="inline-block";
+        return new Date(d).toLocaleString("en-PK", {
+          dateStyle: "medium",
+          timeStyle: "short"
+        });
+      } catch (e) {
+        return d || "";
+      }
+    }
+
+    function setOrderFilter(f, btn) {
+      orderFilter = f;
+
+      document.querySelectorAll(".order-filter-btn").forEach(b => {
+        b.classList.remove("active");
+      });
+
+      if (btn) btn.classList.add("active");
+
+      renderOrders();
+    }
+
+    function playNewOrderSound() {
+      try {
+        let ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+        [0, 0.15, 0.3].forEach((t, i) => {
+          let o = ctx.createOscillator();
+          let g = ctx.createGain();
+
+          o.connect(g);
+          g.connect(ctx.destination);
+
+          o.frequency.value = i === 2 ? 880 : 660;
+          g.gain.value = 0.15;
+
+          o.start(ctx.currentTime + t);
+          o.stop(ctx.currentTime + t + 0.12);
+        });
+
+        setTimeout(() => ctx.close(), 1000);
+
+      } catch (e) {
+        console.warn("Notification sound unavailable:", e);
+      }
+    }
+
+    // PREMIUM NEW ORDER TOAST
+    function showNewOrderToast(name, id) {
+      const toast = document.getElementById("newOrderToast");
+      const toastText = document.getElementById("toastText");
+
+      if (!toast || !toastText) return;
+
+      toastText.textContent = `New Order #${id} - ${name}!`;
+
+      clearTimeout(toastTimer);
+
+      toast.style.display = "flex";
+
+      toastTimer = setTimeout(() => {
+        toast.style.display = "none";
+      }, 6000);
+    }
+
+    function copyOrderText(id) {
+      let o = allOrders.find(x => String(x.id) === String(id));
+
+      if (!o) return;
+
+      let items = o.items || [];
+
+      if (typeof items === "string") {
+        try {
+          items = JSON.parse(items);
+        } catch (e) {
+          items = [];
         }
-        firstLoad=false; lastOrderCount = allOrders.length;
-        renderOrders(); renderRecentOrders(); updateStats();
-      } catch(e){ document.getElementById("ordersContainer").innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><h3>Cannot load orders</h3><p>Backend on karo. ${e.message}</p></div>`; }
+      }
+
+      let txt =
+        `ORDER #${o.id}\n` +
+        `Name: ${oName(o)}\n` +
+        `Phone: ${oPhone(o)}\n` +
+        `Address: ${oAddr(o)}\n` +
+        `Total: Rs ${oTotal(o).toLocaleString()}\n` +
+        `Items: ${items.map(i => i.name || i.brand + " " + i.model).join(", ")}`;
+
+      navigator.clipboard.writeText(txt)
+        .then(() => alert("✅ Order Copied!"))
+        .catch(() => alert("Copy failed. Please copy manually."));
     }
-    function updateStats(){
-      let totalEl=document.getElementById("totalOrders"); let pendEl=document.getElementById("pendingOrders");
-      if(totalEl) totalEl.textContent = allOrders.length;
-      if(pendEl) pendEl.textContent = allOrders.filter(o=>o.status==="new").length;
-      let conf=document.getElementById("confirmedOrders"); if(conf) conf.textContent = allOrders.filter(o=>o.status==="confirmed").length;
-      let done=document.getElementById("doneOrders"); if(done) done.textContent = allOrders.filter(o=>o.status==="done").length;
-      let rev = allOrders.filter(o=>o.status==="confirmed"||o.status==="done").reduce((s,o)=>s+oTotal(o),0);
-      let revEl=document.getElementById("totalRevenue"); if(revEl) revEl.textContent = "Rs " + rev.toLocaleString();
-      let dot=document.getElementById("navNewDot"); if(dot) dot.style.display = allOrders.some(o=>o.status==="new") ? "inline-block" : "none";
+
+    function exportOrdersCSV() {
+      if (allOrders.length === 0) {
+        return alert("No orders to export!");
+      }
+
+      let csv = "Order ID,Name,Phone,Address,Total,Status,Date\n";
+
+      allOrders.forEach(o => {
+        csv += `${o.id},"${oName(o)}","${oPhone(o)}","${oAddr(o).replace(/"/g, '')}",${oTotal(o)},${o.status},"${o.created_at}"\n`;
+      });
+
+      let a = document.createElement("a");
+
+      a.href = URL.createObjectURL(
+        new Blob([csv], { type: "text/csv" })
+      );
+
+      a.download = "sherix-orders.csv";
+      a.click();
+
+      URL.revokeObjectURL(a.href);
     }
-    function renderOrders(){
-      const box = document.getElementById("ordersContainer"); if(!box) return;
-      let list = allOrders.filter(o => orderFilter==="all" || o.status===orderFilter);
-      if(orderSearch){ list = list.filter(o => oName(o).toLowerCase().includes(orderSearch) || oPhone(o).includes(orderSearch) || String(o.id).includes(orderSearch)); }
-      if(list.length===0){ box.innerHTML = `<div class="empty-state"><div class="empty-icon">▤</div><h3>No ${orderFilter==="all"?"":orderFilter} orders</h3><p>New customer orders will be listed here.</p></div>`; return; }
-      box.innerHTML = list.map(o=>{
-        let items = o.items || []; if(typeof items==="string"){ try{ items=JSON.parse(items); }catch(e){ items=[]; } }
-        let itemsHtml = items.map(it=>`<div class="order-item"><img src="${it.image_url||''}" onerror="this.style.display='none'"><div style="flex:1"><b>${it.name||it.brand+" "+it.model}</b><br><small>${it.brand||''} ${it.model||''}</small><br><span>Rs ${Number(it.price||0).toLocaleString()}</span></div></div>`).join("");
+
+    // LOAD ORDERS AND DETECT ONLY GENUINELY NEW ORDER IDs
+    async function loadOrders() {
+      try {
+        const res = await fetch(`${ORDERS_API}/orders`, {
+          credentials: "include"
+        });
+
+        if (res.status === 401) {
+          window.location.replace("login.html");
+          return;
+        }
+
+        if (!res.ok) {
+          throw new Error("Orders load failed");
+        }
+
+        const data = await res.json();
+        const receivedOrders = data.orders || [];
+
+        // FIRST LOAD:
+        // Remember existing orders without showing notifications.
+        if (firstLoad) {
+          receivedOrders.forEach(order => {
+            knownOrderIds.add(String(order.id));
+          });
+
+          firstLoad = false;
+
+        } else {
+
+          // Check only IDs that have never been seen before.
+          const newOrders = receivedOrders.filter(order => {
+            return !knownOrderIds.has(String(order.id));
+          });
+
+          if (newOrders.length > 0) {
+
+            // Remember new IDs to prevent duplicate notifications.
+            newOrders.forEach(order => {
+              knownOrderIds.add(String(order.id));
+            });
+
+            // Show notification for the latest newly detected order.
+            const newest = newOrders[0];
+
+            playNewOrderSound();
+
+            showNewOrderToast(
+              oName(newest),
+              newest.id
+            );
+          }
+        }
+
+        // Remember all received order IDs.
+        receivedOrders.forEach(order => {
+          knownOrderIds.add(String(order.id));
+        });
+
+        allOrders = receivedOrders;
+
+        renderOrders();
+        renderRecentOrders();
+        updateStats();
+
+      } catch (e) {
+        document.getElementById("ordersContainer").innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">▤</div>
+            <h3>Cannot load orders</h3>
+            <p>Backend on karo. ${e.message}</p>
+          </div>
+        `;
+      }
+    }
+
+    function updateStats() {
+      let totalEl = document.getElementById("totalOrders");
+      let pendEl = document.getElementById("pendingOrders");
+
+      if (totalEl) totalEl.textContent = allOrders.length;
+
+      if (pendEl) {
+        pendEl.textContent = allOrders.filter(o => o.status === "new").length;
+      }
+
+      let conf = document.getElementById("confirmedOrders");
+
+      if (conf) {
+        conf.textContent = allOrders.filter(o => o.status === "confirmed").length;
+      }
+
+      let done = document.getElementById("doneOrders");
+
+      if (done) {
+        done.textContent = allOrders.filter(o => o.status === "done").length;
+      }
+
+      let rev = allOrders
+        .filter(o => o.status === "confirmed" || o.status === "done")
+        .reduce((s, o) => s + oTotal(o), 0);
+
+      let revEl = document.getElementById("totalRevenue");
+
+      if (revEl) {
+        revEl.textContent = "Rs " + rev.toLocaleString();
+      }
+
+      let dot = document.getElementById("navNewDot");
+
+      if (dot) {
+        dot.style.display = allOrders.some(o => o.status === "new")
+          ? "inline-block"
+          : "none";
+      }
+    }
+
+    function renderOrders() {
+      const box = document.getElementById("ordersContainer");
+
+      if (!box) return;
+
+      let list = allOrders.filter(o =>
+        orderFilter === "all" || o.status === orderFilter
+      );
+
+      if (orderSearch) {
+        list = list.filter(o =>
+          oName(o).toLowerCase().includes(orderSearch) ||
+          oPhone(o).includes(orderSearch) ||
+          String(o.id).includes(orderSearch)
+        );
+      }
+
+      if (list.length === 0) {
+        box.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">▤</div>
+            <h3>No ${orderFilter === "all" ? "" : orderFilter} orders</h3>
+            <p>New customer orders will be listed here.</p>
+          </div>
+        `;
+
+        return;
+      }
+
+      box.innerHTML = list.map(o => {
+
+        let items = o.items || [];
+
+        if (typeof items === "string") {
+          try {
+            items = JSON.parse(items);
+          } catch (e) {
+            items = [];
+          }
+        }
+
+        let itemsHtml = items.map(it => `
+          <div class="order-item">
+            <img src="${it.image_url || ''}" onerror="this.style.display='none'">
+            <div style="flex:1">
+              <b>${it.name || it.brand + " " + it.model}</b><br>
+              <small>${it.brand || ''} ${it.model || ''}</small><br>
+              <span>Rs ${Number(it.price || 0).toLocaleString()}</span>
+            </div>
+          </div>
+        `).join("");
+
         let waPhone = cleanPhone(oPhone(o));
-        return `<div class="order-card ${o.status==="new"?"new-order":""}"><div class="order-card-head"><div><h3>Order #${o.id} - ${oName(o)}</h3><small>${formatDate(o.created_at)} • ${oPhone(o)}</small><br><small>📍 ${oAddr(o)}</small>${oEmail(o)?`<br><small>✉️ ${oEmail(o)}</small>`:''}</div><span class="order-status ${o.status}">${o.status}</span></div><div class="order-items">${itemsHtml}</div><div class="order-total">Total: <span>Rs ${oTotal(o).toLocaleString()}</span></div><div class="order-actions"><a class="wa-action" target="_blank" href="https://wa.me/${waPhone}?text=${encodeURIComponent('Assalam-o-Alaikum '+oName(o)+', SHERIX se baat kar raha hun. Aapka Order #'+o.id+' confirm hai. Shukriya!')}">💬 WHATSAPP CUSTOMER</a><button onclick="copyOrderText(${o.id})">📋 COPY</button>${o.status==="new"?`<button class="confirm-action" onclick="changeOrderStatus(${o.id},'confirmed')">✓ CONFIRM ORDER</button>`:''}${o.status==="confirmed"?`<button class="done-action" onclick="changeOrderStatus(${o.id},'done')">✓ MARK DONE</button>`:''}${o.status!=="cancelled"&&o.status!=="done"?`<button onclick="changeOrderStatus(${o.id},'cancelled')">✕ CANCEL</button>`:''}</div></div>`;
+
+        return `
+          <div class="order-card ${o.status === "new" ? "new-order" : ""}">
+            <div class="order-card-head">
+              <div>
+                <h3>Order #${o.id} - ${oName(o)}</h3>
+                <small>${formatDate(o.created_at)} • ${oPhone(o)}</small><br>
+                <small>📍 ${oAddr(o)}</small>
+                ${oEmail(o) ? `<br><small>✉️ ${oEmail(o)}</small>` : ''}
+              </div>
+
+              <span class="order-status ${o.status}">${o.status}</span>
+            </div>
+
+            <div class="order-items">${itemsHtml}</div>
+
+            <div class="order-total">
+              Total: <span>Rs ${oTotal(o).toLocaleString()}</span>
+            </div>
+
+            <div class="order-actions">
+
+              <a class="wa-action"
+                target="_blank"
+                href="https://wa.me/${waPhone}?text=${encodeURIComponent('Assalam-o-Alaikum ' + oName(o) + ', SHERIX se baat kar raha hun. Aapka Order #' + o.id + ' confirm hai. Shukriya!')}">
+                💬 WHATSAPP CUSTOMER
+              </a>
+
+              <button onclick="copyOrderText(${o.id})">📋 COPY</button>
+
+              ${o.status === "new"
+                ? `<button class="confirm-action" onclick="changeOrderStatus(${o.id},'confirmed')">✓ CONFIRM ORDER</button>`
+                : ''
+              }
+
+              ${o.status === "confirmed"
+                ? `<button class="done-action" onclick="changeOrderStatus(${o.id},'done')">✓ MARK DONE</button>`
+                : ''
+              }
+
+              ${o.status !== "cancelled" && o.status !== "done"
+                ? `<button onclick="changeOrderStatus(${o.id},'cancelled')">✕ CANCEL</button>`
+                : ''
+              }
+
+            </div>
+          </div>
+        `;
+
       }).join("");
     }
-    function renderRecentOrders(){
-      const box = document.getElementById("recentOrders"); if(!box) return; if(allOrders.length===0) return;
-      let recent = allOrders.slice(0,3);
-      box.innerHTML = recent.map(o=>{ let items = o.items || []; if(typeof items==="string"){ try{ items=JSON.parse(items); }catch(e){ items=[]; } } let names = items.map(i=>i.name||i.brand+" "+i.model).join(", "); return `<div class="order-card" style="padding:14px"><div class="order-card-head"><div><h3>${oName(o)} - Order #${o.id}</h3><small>${names}</small><br><small>${formatDate(o.created_at)}</small></div><span class="order-status ${o.status}">${o.status}</span></div><div class="order-total">Total: <span>Rs ${oTotal(o).toLocaleString()}</span></div></div>`; }).join("");
+
+    function renderRecentOrders() {
+      const box = document.getElementById("recentOrders");
+
+      if (!box) return;
+
+      if (allOrders.length === 0) {
+        box.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">▤</div>
+            <h3>No orders yet</h3>
+            <p>Your customer orders will appear here.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let recent = allOrders.slice(0, 3);
+
+      box.innerHTML = recent.map(o => {
+
+        let items = o.items || [];
+
+        if (typeof items === "string") {
+          try {
+            items = JSON.parse(items);
+          } catch (e) {
+            items = [];
+          }
+        }
+
+        let names = items
+          .map(i => i.name || i.brand + " " + i.model)
+          .join(", ");
+
+        return `
+          <div class="order-card" style="padding:14px">
+            <div class="order-card-head">
+              <div>
+                <h3>${oName(o)} - Order #${o.id}</h3>
+                <small>${names}</small><br>
+                <small>${formatDate(o.created_at)}</small>
+              </div>
+              <span class="order-status ${o.status}">${o.status}</span>
+            </div>
+
+            <div class="order-total">
+              Total: <span>Rs ${oTotal(o).toLocaleString()}</span>
+            </div>
+          </div>
+        `;
+
+      }).join("");
     }
-    async function changeOrderStatus(id, status){ try { await fetch(`${ORDERS_API}/orders/${id}/status`, { method: "PATCH", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }) }); loadOrders(); } catch(e){ alert("Status update failed"); } }
-    let sellerSettings = JSON.parse(localStorage.getItem("sherix_seller_settings") || JSON.stringify({ storeName: "SHERIX", ownerName: "Farman Shinwari", whatsapp: "03075689144", email: "", address: "" }));
-    function applySellerSettings(){ document.getElementById("viewStoreName").textContent = sellerSettings.storeName || "SHERIX"; document.getElementById("viewOwnerName").textContent = sellerSettings.ownerName || "Farman"; document.getElementById("viewWhatsApp").textContent = sellerSettings.whatsapp || "-"; document.getElementById("viewEmail").textContent = sellerSettings.email || "-"; document.getElementById("viewAddress").textContent = sellerSettings.address || "-"; let miniSmall = document.querySelector(".seller-mini-profile small"); if(miniSmall) miniSmall.textContent = "Store Owner • " + sellerSettings.storeName; let welcomeName = document.querySelector(".welcome-banner h2 span"); if(welcomeName){ let firstName = (sellerSettings.ownerName || "Farman").split(" ")[0]; welcomeName.textContent = firstName + "."; } let brandName = document.querySelector(".studio-brand .brand-name"); if(brandName) brandName.textContent = sellerSettings.storeName.toUpperCase().slice(0,12); }
-    function openSettingsEdit(){ document.getElementById("settingsView").style.display = "none"; document.getElementById("settingsEdit").style.display = "block"; document.getElementById("setStoreName").value = sellerSettings.storeName; document.getElementById("setOwnerName").value = sellerSettings.ownerName; document.getElementById("setWhatsApp").value = sellerSettings.whatsapp; document.getElementById("setEmail").value = sellerSettings.email; document.getElementById("setAddress").value = sellerSettings.address; document.getElementById("settingsMsg").textContent = ""; }
-    function closeSettingsEdit(){ document.getElementById("settingsEdit").style.display = "none"; document.getElementById("settingsView").style.display = "block"; }
-    function saveSellerSettings(){ let storeName = document.getElementById("setStoreName").value.trim(); let ownerName = document.getElementById("setOwnerName").value.trim(); let whatsapp = document.getElementById("setWhatsApp").value.trim(); if(!storeName || !ownerName || !whatsapp){ document.getElementById("settingsMsg").style.color = "#e33c56"; document.getElementById("settingsMsg").textContent = "Store Name, Your Name aur WhatsApp zaroori hai!"; return; } sellerSettings = { storeName: storeName, ownerName: ownerName, whatsapp: whatsapp, email: document.getElementById("setEmail").value.trim(), address: document.getElementById("setAddress").value.trim() }; localStorage.setItem("sherix_seller_settings", JSON.stringify(sellerSettings)); applySellerSettings(); document.getElementById("settingsMsg").style.color = "#54c88c"; document.getElementById("settingsMsg").textContent = "✅ Saved! Profile update ho gaya!"; setTimeout(closeSettingsEdit, 800); }
+
+    async function changeOrderStatus(id, status) {
+      try {
+        const res = await fetch(`${ORDERS_API}/orders/${id}/status`, {
+          method: "PATCH",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ status })
+        });
+
+        if (!res.ok) {
+          throw new Error("Status update failed");
+        }
+
+        loadOrders();
+
+      } catch (e) {
+        alert("Status update failed");
+      }
+    }
+
+    // SELLER SETTINGS
+    let sellerSettings = JSON.parse(
+      localStorage.getItem("sherix_seller_settings") ||
+      JSON.stringify({
+        storeName: "SHERIX",
+        ownerName: "Farman Shinwari",
+        whatsapp: "03075689144",
+        email: "",
+        address: ""
+      })
+    );
+
+    function applySellerSettings() {
+      document.getElementById("viewStoreName").textContent =
+        sellerSettings.storeName || "SHERIX";
+
+      document.getElementById("viewOwnerName").textContent =
+        sellerSettings.ownerName || "Farman";
+
+      document.getElementById("viewWhatsApp").textContent =
+        sellerSettings.whatsapp || "-";
+
+      document.getElementById("viewEmail").textContent =
+        sellerSettings.email || "-";
+
+      document.getElementById("viewAddress").textContent =
+        sellerSettings.address || "-";
+
+      let miniSmall = document.querySelector(".seller-mini-profile small");
+
+      if (miniSmall) {
+        miniSmall.textContent = "Store Owner • " + sellerSettings.storeName;
+      }
+
+      let welcomeName = document.querySelector(".welcome-banner h2 span");
+
+      if (welcomeName) {
+        let firstName = (sellerSettings.ownerName || "Farman").split(" ")[0];
+        welcomeName.textContent = firstName + ".";
+      }
+
+      let brandName = document.querySelector(".studio-brand .brand-name");
+
+      if (brandName) {
+        brandName.textContent = sellerSettings.storeName.toUpperCase().slice(0, 12);
+      }
+    }
+
+    function openSettingsEdit() {
+      document.getElementById("settingsView").style.display = "none";
+      document.getElementById("settingsEdit").style.display = "block";
+
+      document.getElementById("setStoreName").value = sellerSettings.storeName;
+      document.getElementById("setOwnerName").value = sellerSettings.ownerName;
+      document.getElementById("setWhatsApp").value = sellerSettings.whatsapp;
+      document.getElementById("setEmail").value = sellerSettings.email;
+      document.getElementById("setAddress").value = sellerSettings.address;
+
+      document.getElementById("settingsMsg").textContent = "";
+    }
+
+    function closeSettingsEdit() {
+      document.getElementById("settingsEdit").style.display = "none";
+      document.getElementById("settingsView").style.display = "block";
+    }
+
+    function saveSellerSettings() {
+      let storeName = document.getElementById("setStoreName").value.trim();
+      let ownerName = document.getElementById("setOwnerName").value.trim();
+      let whatsapp = document.getElementById("setWhatsApp").value.trim();
+
+      if (!storeName || !ownerName || !whatsapp) {
+        document.getElementById("settingsMsg").style.color = "#e33c56";
+        document.getElementById("settingsMsg").textContent =
+          "Store Name, Your Name aur WhatsApp zaroori hai!";
+        return;
+      }
+
+      sellerSettings = {
+        storeName: storeName,
+        ownerName: ownerName,
+        whatsapp: whatsapp,
+        email: document.getElementById("setEmail").value.trim(),
+        address: document.getElementById("setAddress").value.trim()
+      };
+
+      localStorage.setItem(
+        "sherix_seller_settings",
+        JSON.stringify(sellerSettings)
+      );
+
+      applySellerSettings();
+
+      document.getElementById("settingsMsg").style.color = "#54c88c";
+      document.getElementById("settingsMsg").textContent =
+        "✅ Saved! Profile update ho gaya!";
+
+      setTimeout(closeSettingsEdit, 800);
+    }
+
     applySellerSettings();
-    // Orders auto-refresh - script.js pehle /auth/me check karega, fail hua to login.html pe bhej dega
+
+    // Initial load: existing orders are remembered silently.
     loadOrders();
+
+    // Check for new orders every 15 seconds.
     setInterval(loadOrders, 15000);
+
   </script>
 </body>
 </html>
